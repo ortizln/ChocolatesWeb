@@ -30,13 +30,13 @@ echo ""
 if [ ! -d "$PUBLIC_DIR/node_modules" ]; then
   echo "[*] Instalando dependencias del frontend publico..."
   cd "$PUBLIC_DIR"
-  npm install
+  npm install --legacy-peer-deps
 fi
 
 if [ ! -d "$ADMIN_DIR/node_modules" ]; then
   echo "[*] Instalando dependencias del panel admin..."
   cd "$ADMIN_DIR"
-  npm install
+  npm install --legacy-peer-deps
 fi
 
 # 2. Construir frontend publico con base-href para subpath
