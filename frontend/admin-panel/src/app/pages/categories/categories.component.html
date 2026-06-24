@@ -1,0 +1,92 @@
+<div class="page-header">
+  <h2><i class="fas fa-tags"></i> Categorías</h2>
+  <button class="btn btn-primary" (click)="openNew()"><i class="fas fa-plus"></i> Nueva Categoría</button>
+</div>
+
+<div class="content-wrapper">
+  <div class="row g-4">
+    <div class="col-12" [class.col-lg-7]="showForm">
+      <div class="table-container">
+        <div class="table-responsive">
+          <table class="table table-hover align-middle mb-0">
+            <thead class="table-light">
+              <tr>
+                <th>Nombre</th>
+                <th>Slug</th>
+                <th>Categoría Padre</th>
+                <th>Estado</th>
+                <th style="width:100px;">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let cat of parentCategories">
+                <tr>
+                  <td><strong>{{ cat.nombre }}</strong></td>
+                  <td><code>{{ cat.slug }}</code></td>
+                  <td>—</td>
+                  <td><span class="badge-status" [class.active]="cat.activo" [class.inactive]="!cat.activo">{{ cat.activo ? 'Activo' : 'Inactivo' }}</span></td>
+                  <td>
+                    <div class="d-flex gap-1">
+                      <button class="btn-action" style="background:#e3f2fd;color:#1565c0;" (click)="openEdit(cat)"><i class="fas fa-edit"></i></button>
+                      <button class="btn-action" style="background:#fbe9e7;color:#c62828;" (click)="onDelete(cat.id)"><i class="fas fa-trash"></i></button>
+                    </div>
+                  </td>
+                </tr>
+                <tr *ngFor="let child of getChildCategories(cat.id)">
+                  <td class="ps-5">↳ {{ child.nombre }}</td>
+                  <td><code>{{ child.slug }}</code></td>
+                  <td>{{ cat.nombre }}</td>
+                  <td><span class="badge-status" [class.active]="child.activo" [class.inactive]="!child.activo">{{ child.activo ? 'Activo' : 'Inactivo' }}</span></td>
+                  <td>
+                    <div class="d-flex gap-1">
+                      <button class="btn-action" style="background:#e3f2fd;color:#1565c0;" (click)="openEdit(child)"><i class="fas fa-edit"></i></button>
+                      <button class="btn-action" style="background:#fbe9e7;color:#c62828;" (click)="onDelete(child.id)"><i class="fas fa-trash"></i></button>
+                    </div>
+                  </td>
+                </tr>
+              </ng-container>
+              <tr *ngIf="categories.length === 0">
+                <td colspan="5" class="text-center py-4 text-muted">No hay categorías</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-lg-5" *ngIf="showForm">
+      <div class="form-container">
+        <h5 class="mb-3">{{ editingCategory ? 'Editar' : 'Nueva' }} Categoría</h5>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Nombre *</label>
+            <input type="text" class="form-control" formControlName="nombre" placeholder="Nombre de la categoría" />
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Descripción</label>
+            <textarea class="form-control" formControlName="descripcion" rows="3"></textarea>
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Categoría Padre</label>
+            <select class="form-select" formControlName="padreId">
+              <option value="0">Ninguna (raíz)</option>
+              <option *ngFor="let cat of parentCategories" [value]="cat.id">{{ cat.nombre }}</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" formControlName="activo" id="cat-activo" />
+              <label class="form-check-label" for="cat-activo">Categoría Activa</label>
+            </div>
+          </div>
+          <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
+              <i class="fas fa-save"></i> {{ editingCategory ? 'Actualizar' : 'Crear' }}
+            </button>
+            <button type="button" class="btn btn-outline-secondary" (click)="cancel()">Cancelar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,199 @@
+<div class="catalog-page">
+  <!-- Page Header -->
+  <section class="page-header">
+    <div class="page-header-bg"></div>
+    <div class="container">
+      <div class="page-header-content">
+        <h1 class="page-title">Nuestros Productos</h1>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a routerLink="/">Inicio</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Productos</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </section>
+
+  <!-- Catalog Content -->
+  <section class="catalog-section">
+    <div class="container">
+      <div class="row">
+        <!-- Sidebar Filters -->
+        <div class="col-lg-3" [ngClass]="{ 'filter-open': isFilterOpen }">
+          <div class="catalog-sidebar">
+            <div class="filter-header d-flex d-lg-none">
+              <h5>Filtros</h5>
+              <button class="btn-close" (click)="toggleFilter()"></button>
+            </div>
+
+            <!-- Search -->
+            <div class="sidebar-widget search-widget">
+              <h5 class="widget-title">Buscar</h5>
+              <div class="search-form">
+                <input type="text" class="form-control" placeholder="Buscar productos..." [(ngModel)]="searchTerm" (input)="onSearch()">
+                <button class="btn btn-search" *ngIf="!searchTerm"><i class="fas fa-search"></i></button>
+                <button class="btn btn-clear" *ngIf="searchTerm" (click)="clearSearch()"><i class="fas fa-times"></i></button>
+              </div>
+            </div>
+
+            <!-- Categories -->
+            <div class="sidebar-widget categories-widget">
+              <h5 class="widget-title">Categorías</h5>
+              <ul class="category-list">
+                <li>
+                  <a (click)="clearCategoryFilter()" [ngClass]="{ 'active': selectedCategory === null }" class="category-link">
+                    <i class="fas fa-th-list"></i> Todas las Categorías
+                    <span class="count">{{ totalProductCount }}</span>
+                  </a>
+                </li>
+                <li *ngFor="let cat of categories">
+                  <a (click)="filterByCategory(cat.id)" [ngClass]="{ 'active': selectedCategory === cat.id }" class="category-link">
+                    <i class="fas fa-cube"></i> {{ cat.name }}
+                    <span class="count">{{ cat.productCount }}</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Price Filter -->
+            <div class="sidebar-widget price-widget">
+              <h5 class="widget-title">Rango de Precio</h5>
+              <div class="price-options">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="priceRange" id="priceAll" checked>
+                  <label class="form-check-label" for="priceAll">Todos los precios</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="priceRange" id="price1">
+                  <label class="form-check-label" for="price1">S/ 0 - S/ 30</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="priceRange" id="price2">
+                  <label class="form-check-label" for="price2">S/ 31 - S/ 60</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="priceRange" id="price3">
+                  <label class="form-check-label" for="price3">S/ 61 - S/ 100</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="priceRange" id="price4">
+                  <label class="form-check-label" for="price4">S/ 101+</label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Apply Filters -->
+            <button class="btn btn-primary btn-purple w-100">Aplicar Filtros</button>
+          </div>
+        </div>
+
+        <!-- Product Grid -->
+        <div class="col-lg-9">
+          <!-- Toolbar -->
+          <div class="catalog-toolbar">
+            <div class="toolbar-left">
+              <button class="btn btn-filter-toggle d-lg-none" (click)="toggleFilter()">
+                <i class="fas fa-sliders-h"></i> Filtros
+              </button>
+              <div class="toolbar-info">
+                <span class="results-count">Mostrando 1-{{ products.length }} de {{ products.length + 8 }} productos</span>
+              </div>
+            </div>
+            <div class="toolbar-right">
+              <div class="view-toggle">
+                <button class="btn btn-view" [ngClass]="{ 'active': isGridView }" (click)="isGridView ? null : toggleView()" title="Vista cuadrícula">
+                  <i class="fas fa-th"></i>
+                </button>
+                <button class="btn btn-view" [ngClass]="{ 'active': !isGridView }" (click)="isGridView ? toggleView() : null" title="Vista lista">
+                  <i class="fas fa-list"></i>
+                </button>
+              </div>
+              <div class="sort-dropdown dropdown">
+                <button class="btn btn-sort dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="fas fa-sort-amount-down me-1"></i> {{ getSortLabel() }}
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                  <li><a class="dropdown-item" [ngClass]="{ 'active': sortBy === 'default' }" (click)="sortBy = 'default'">Ordenar por</a></li>
+                  <li><a class="dropdown-item" [ngClass]="{ 'active': sortBy === 'price-asc' }" (click)="sortBy = 'price-asc'">Precio: Menor a Mayor</a></li>
+                  <li><a class="dropdown-item" [ngClass]="{ 'active': sortBy === 'price-desc' }" (click)="sortBy = 'price-desc'">Precio: Mayor a Menor</a></li>
+                  <li><a class="dropdown-item" [ngClass]="{ 'active': sortBy === 'name-asc' }" (click)="sortBy = 'name-asc'">Nombre: A-Z</a></li>
+                  <li><a class="dropdown-item" [ngClass]="{ 'active': sortBy === 'name-desc' }" (click)="sortBy = 'name-desc'">Nombre: Z-A</a></li>
+                  <li><a class="dropdown-item" [ngClass]="{ 'active': sortBy === 'popular' }" (click)="sortBy = 'popular'">Más Populares</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Search Results Info -->
+          <div class="search-results-info" *ngIf="showSearchResults">
+            <p>Resultados para: <strong>"{{ searchTerm }}"</strong> <button class="btn btn-sm btn-clear-search" (click)="clearSearch()"><i class="fas fa-times"></i> Limpiar</button></p>
+          </div>
+
+          <!-- Grid View -->
+          <div class="row g-4" *ngIf="isGridView">
+            <div class="col-xl-4 col-md-6" *ngFor="let product of products">
+              <app-product-card [product]="product"></app-product-card>
+            </div>
+          </div>
+
+          <!-- List View -->
+          <div class="list-view" *ngIf="!isGridView">
+            <div class="product-list-item" *ngFor="let product of products">
+              <div class="list-item-image">
+                <img [src]="product.imageUrl" [alt]="product.name" loading="lazy">
+              </div>
+              <div class="list-item-info">
+                <p class="list-category">{{ product.categoryName }}</p>
+                <h4 class="list-name">{{ product.name }}</h4>
+                <p class="list-code">Código: {{ product.code }}</p>
+                <p class="list-description">Delicioso chocolate artesanal elaborado con los mejores ingredientes naturales, perfecto para cualquier ocasión especial.</p>
+                <div class="list-meta">
+                  <span><i class="fas fa-heart"></i> {{ product.likesCount }}</span>
+                  <span><i class="fas fa-eye"></i> {{ product.viewsCount }}</span>
+                </div>
+              </div>
+              <div class="list-item-actions">
+                <div class="list-pricing">
+                  <div class="list-price" *ngIf="!product.discountPrice">S/ {{ product.price | number:'1.2-2' }}</div>
+                  <ng-container *ngIf="product.discountPrice">
+                    <div class="list-price old">S/ {{ product.price | number:'1.2-2' }}</div>
+                    <div class="list-price discount">S/ {{ product.discountPrice | number:'1.2-2' }}</div>
+                  </ng-container>
+                </div>
+                <a [routerLink]="['/productos', product.slug]" class="btn btn-purple w-100">Ver detalle</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Empty State -->
+          <div class="empty-state text-center py-5" *ngIf="products.length === 0">
+            <i class="fas fa-search fa-3x text-muted mb-3"></i>
+            <h4>No se encontraron productos</h4>
+            <p class="text-muted">Intenta con otros términos de búsqueda o categorías.</p>
+            <button class="btn btn-purple" (click)="clearSearch(); clearCategoryFilter()">Ver todos los productos</button>
+          </div>
+
+          <!-- Pagination -->
+          <nav class="catalog-pagination" aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+              <li class="page-item" [ngClass]="{ 'disabled': currentPage === 1 }">
+                <a class="page-link" (click)="goToPage(currentPage - 1)" aria-label="Anterior">
+                  <i class="fas fa-chevron-left"></i>
+                </a>
+              </li>
+              <li class="page-item" *ngFor="let page of getPages()" [ngClass]="{ 'active': page === currentPage }">
+                <a class="page-link" (click)="goToPage(page)">{{ page }}</a>
+              </li>
+              <li class="page-item" [ngClass]="{ 'disabled': currentPage === totalPages }">
+                <a class="page-link" (click)="goToPage(currentPage + 1)" aria-label="Siguiente">
+                  <i class="fas fa-chevron-right"></i>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

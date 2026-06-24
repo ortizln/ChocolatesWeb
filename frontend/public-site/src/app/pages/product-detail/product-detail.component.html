@@ -1,0 +1,256 @@
+<div class="product-detail-page" *ngIf="product">
+  <!-- Page Header -->
+  <section class="page-header">
+    <div class="page-header-bg"></div>
+    <div class="container">
+      <div class="page-header-content">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a routerLink="/">Inicio</a></li>
+            <li class="breadcrumb-item"><a routerLink="/productos">Productos</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ product.name }}</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product Detail -->
+  <section class="detail-section">
+    <div class="container">
+      <div class="row g-5">
+        <!-- Image Gallery -->
+        <div class="col-lg-6">
+          <div class="product-gallery">
+            <div class="main-image" (click)="openLightbox(selectedImageIndex)">
+              <img [src]="product.images[selectedImageIndex]" [alt]="product.name" class="img-fluid">
+              <button class="btn-expand" aria-label="Ampliar imagen">
+                <i class="fas fa-expand"></i>
+              </button>
+              <div class="gallery-badges">
+                <span class="badge-featured" *ngIf="product.isFeatured"><i class="fas fa-star"></i> Destacado</span>
+                <span class="badge-discount" *ngIf="product.discountPrice">
+                  -{{ ((product.price - product.discountPrice) / product.price * 100) | number:'1.0-0' }}%
+                </span>
+              </div>
+            </div>
+            <div class="thumbnails">
+              <div class="thumbnail" *ngFor="let image of product.images; let i = index" [ngClass]="{ 'active': selectedImageIndex === i }" (click)="selectImage(i)">
+                <img [src]="image" [alt]="'Vista ' + (i + 1)" loading="lazy">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product Info -->
+        <div class="col-lg-6">
+          <div class="product-info">
+            <p class="product-category">{{ product.categoryName }}</p>
+            <h1 class="product-name">{{ product.name }}</h1>
+            <p class="product-code">Código: {{ product.code }}</p>
+
+            <div class="product-rating">
+              <i class="fas fa-star" *ngFor="let s of getStarsArray(5)"></i>
+              <span class="rating-text">5.0 (12 reseñas)</span>
+            </div>
+
+            <div class="product-pricing">
+              <span class="current-price" [ngClass]="{ 'has-discount': product.discountPrice }">
+                S/ {{ product.price | number:'1.2-2' }}
+              </span>
+              <span class="discount-price" *ngIf="product.discountPrice">
+                S/ {{ product.discountPrice | number:'1.2-2' }}
+              </span>
+              <span class="price-badge" *ngIf="product.discountPrice">OFERTA</span>
+            </div>
+
+            <div class="product-meta">
+              <div class="meta-item">
+                <i class="fas fa-heart" [ngClass]="{ 'liked': isLiked }" (click)="toggleLike()"></i>
+                <span>{{ product.likesCount }} Me gusta</span>
+              </div>
+              <div class="meta-item">
+                <i class="fas fa-eye"></i>
+                <span>{{ product.viewsCount }} Vistas</span>
+              </div>
+              <div class="meta-item">
+                <i class="fas fa-weight"></i>
+                <span>{{ product.weight }}</span>
+              </div>
+            </div>
+
+            <div class="product-tags">
+              <span class="tag" *ngFor="let tag of product.tags">#{{ tag.name }}</span>
+            </div>
+
+            <div class="product-actions">
+              <button class="btn btn-primary btn-gold btn-lg btn-action">
+                <i class="fas fa-shopping-bag me-2"></i> Añadir a la Bolsa
+              </button>
+              <button class="btn btn-outline-like" [ngClass]="{ 'liked': isLiked }" (click)="toggleLike()">
+                <i class="fas" [ngClass]="isLiked ? 'fa-heart' : 'fa-heart'"></i>
+              </button>
+            </div>
+
+            <div class="share-section">
+              <span class="share-label">Compartir:</span>
+              <div class="share-buttons">
+                <button class="share-btn facebook" (click)="shareOnFacebook()" aria-label="Compartir en Facebook">
+                  <i class="fab fa-facebook-f"></i>
+                </button>
+                <button class="share-btn twitter" (click)="shareOnTwitter()" aria-label="Compartir en Twitter">
+                  <i class="fab fa-twitter"></i>
+                </button>
+                <button class="share-btn whatsapp" (click)="shareOnWhatsApp()" aria-label="Compartir en WhatsApp">
+                  <i class="fab fa-whatsapp"></i>
+                </button>
+                <button class="share-btn copy" (click)="copyLink()" aria-label="Copiar enlace">
+                  <i class="fas fa-link"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="product-shipping">
+              <div class="shipping-item">
+                <i class="fas fa-truck"></i>
+                <span>Envío a todo Perú</span>
+              </div>
+              <div class="shipping-item">
+                <i class="fas fa-undo"></i>
+                <span>Devolución gratuita</span>
+              </div>
+              <div class="shipping-item">
+                <i class="fas fa-shield-alt"></i>
+                <span>Pago seguro</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tabs Section -->
+  <section class="tabs-section">
+    <div class="container">
+      <div class="tabs-nav">
+        <button class="tab-btn" [ngClass]="{ 'active': activeTab === 'description' }" (click)="setTab('description')">
+          <i class="fas fa-align-left"></i> Descripción
+        </button>
+        <button class="tab-btn" [ngClass]="{ 'active': activeTab === 'ingredients' }" (click)="setTab('ingredients')">
+          <i class="fas fa-list"></i> Ingredientes
+        </button>
+        <button class="tab-btn" [ngClass]="{ 'active': activeTab === 'nutritional' }" (click)="setTab('nutritional')">
+          <i class="fas fa-apple-alt"></i> Información Nutricional
+        </button>
+      </div>
+
+      <div class="tab-content">
+        <!-- Description Tab -->
+        <div class="tab-pane" *ngIf="activeTab === 'description'">
+          <div class="row">
+            <div class="col-lg-8">
+              <h3>{{ product.name }}</h3>
+              <p>{{ product.description }}</p>
+              <p>Nuestro proceso de elaboración artesanal garantiza que cada tableta conserve las propiedades y el sabor original del cacao peruano, seleccionado directamente de pequeños productores de la región de San Martín.</p>
+            </div>
+            <div class="col-lg-4">
+              <div class="highlights-box">
+                <h4><i class="fas fa-star text-gold me-2"></i> Destacados</h4>
+                <ul>
+                  <li><i class="fas fa-check-circle text-gold"></i> Cacao peruano 100%</li>
+                  <li><i class="fas fa-check-circle text-gold"></i> Comercio justo</li>
+                  <li><i class="fas fa-check-circle text-gold"></i> Sin conservantes</li>
+                  <li><i class="fas fa-check-circle text-gold"></i> Empaque reciclable</li>
+                  <li><i class="fas fa-check-circle text-gold"></i> Producción limitada</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Ingredients Tab -->
+        <div class="tab-pane" *ngIf="activeTab === 'ingredients'">
+          <h3>Ingredientes</h3>
+          <p>Seleccionamos cuidadosamente cada ingrediente para garantizar la mejor calidad en nuestros productos.</p>
+          <div class="ingredients-grid">
+            <div class="ingredient-item" *ngFor="let ingredient of product.ingredients; let i = index">
+              <span class="ingredient-number">{{ i + 1 }}</span>
+              <span class="ingredient-name">{{ ingredient }}</span>
+            </div>
+          </div>
+          <p class="mt-3"><small class="text-muted">* Puede contener trazas de frutos secos, leche y soya.</small></p>
+        </div>
+
+        <!-- Nutritional Tab -->
+        <div class="tab-pane" *ngIf="activeTab === 'nutritional'">
+          <h3>Información Nutricional</h3>
+          <p>Valores por porción de {{ product.nutritionalInfo.servingSize }}.</p>
+          <div class="nutritional-table-wrapper">
+            <table class="nutritional-table">
+              <thead>
+                <tr>
+                  <th>Nutriente</th>
+                  <th>Cantidad por porción</th>
+                  <th>%VD*</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Calorías</td><td><strong>{{ product.nutritionalInfo.calories }}</strong> kcal</td><td>-</td></tr>
+                <tr><td>Grasa Total</td><td>{{ product.nutritionalInfo.totalFat }}</td><td>15%</td></tr>
+                <tr><td>Grasa Saturada</td><td>{{ product.nutritionalInfo.saturatedFat }}</td><td>35%</td></tr>
+                <tr><td>Grasa Trans</td><td>{{ product.nutritionalInfo.transFat }}</td><td>-</td></tr>
+                <tr><td>Colesterol</td><td>{{ product.nutritionalInfo.cholesterol }}</td><td>0%</td></tr>
+                <tr><td>Sodio</td><td>{{ product.nutritionalInfo.sodium }}</td><td>0%</td></tr>
+                <tr><td>Carbohidratos Totales</td><td>{{ product.nutritionalInfo.totalCarbohydrates }}</td><td>5%</td></tr>
+                <tr><td>Fibra Dietética</td><td>{{ product.nutritionalInfo.dietaryFiber }}</td><td>11%</td></tr>
+                <tr><td>Azúcares</td><td>{{ product.nutritionalInfo.sugars }}</td><td>-</td></tr>
+                <tr><td>Proteína</td><td>{{ product.nutritionalInfo.protein }}</td><td>2%</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="mt-2"><small class="text-muted">* Valores diarios con base a una dieta de 2000 kcal.</small></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Video Section -->
+  <section class="product-video-section">
+    <div class="container">
+      <div class="section-header text-center">
+        <h2 class="section-title">Video del <span class="text-gold">Producto</span></h2>
+        <p class="section-subtitle">Mira cómo elaboramos este producto artesanalmente</p>
+      </div>
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Video del producto" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Products -->
+  <section class="related-section">
+    <div class="container">
+      <div class="section-header text-center">
+        <h2 class="section-title">Productos <span class="text-gold">Relacionados</span></h2>
+        <p class="section-subtitle">Descubre otros productos que podrían interesarte</p>
+      </div>
+      <div class="row g-4">
+        <div class="col-lg-4 col-md-6" *ngFor="let related of relatedProducts">
+          <app-product-card [product]="related"></app-product-card>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lightbox -->
+  <div class="lightbox-overlay" *ngIf="isLightboxOpen" (click)="closeLightbox()">
+    <div class="lightbox-content" (click)="$event.stopPropagation()">
+      <button class="lightbox-close" (click)="closeLightbox()"><i class="fas fa-times"></i></button>
+      <button class="lightbox-nav lightbox-prev" (click)="selectedImageIndex = (selectedImageIndex - 1 + product.images.length) % product.images.length"><i class="fas fa-chevron-left"></i></button>
+      <img [src]="product.images[selectedImageIndex]" [alt]="product.name" class="lightbox-image">
+      <button class="lightbox-nav lightbox-next" (click)="selectedImageIndex = (selectedImageIndex + 1) % product.images.length"><i class="fas fa-chevron-right"></i></button>
+      <div class="lightbox-counter">{{ selectedImageIndex + 1 }} / {{ product.images.length }}</div>
+    </div>
+  </div>
+</div>

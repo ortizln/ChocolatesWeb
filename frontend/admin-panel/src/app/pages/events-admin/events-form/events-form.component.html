@@ -1,0 +1,107 @@
+<div class="page-header">
+  <h2>{{ isEdit ? 'Editar Evento' : 'Nuevo Evento' }}</h2>
+  <a routerLink="/events" class="btn btn-outline-secondary"><i class="fas fa-arrow-left"></i> Volver</a>
+</div>
+
+<div class="content-wrapper">
+  <div class="form-container" *ngIf="!loading">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Título *</label>
+            <input type="text" class="form-control" formControlName="titulo" placeholder="Título del evento" />
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Descripción Corta</label>
+            <textarea class="form-control" formControlName="descripcion" rows="3" placeholder="Breve descripción para listados"></textarea>
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Contenido</label>
+            <textarea class="form-control" formControlName="contenido" rows="8" placeholder="Descripción completa del evento"></textarea>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Imagen
+              <span class="image-info-btn" (click)="showImageInfo = !showImageInfo" title="Recomendaciones">
+                <i class="fas fa-info-circle"></i>
+              </span>
+            </label>
+            <div class="upload-info-box" *ngIf="showImageInfo">
+              <i class="fas fa-lightbulb"></i>
+              <span>Formato: JPG, PNG o WebP · Tamaño recomendado: 1200x630px · Máx: 2MB</span>
+            </div>
+            <div class="image-upload-wrapper" (click)="fileInput.click()">
+              <img *ngIf="previewImage" [src]="previewImage" class="preview-img" />
+              <div *ngIf="!previewImage" class="upload-placeholder">
+                <i class="fas fa-cloud-upload-alt fa-3x"></i>
+              </div>
+            </div>
+            <input #fileInput type="file" accept="image/*" (change)="onImageSelected($event)" class="d-none" />
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4">
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Fecha Inicio *</label>
+            <input type="date" class="form-control" formControlName="fechaInicio" />
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Fecha Fin</label>
+            <input type="date" class="form-control" formControlName="fechaFin" />
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Hora</label>
+            <input type="time" class="form-control" formControlName="hora" />
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Lugar</label>
+            <input type="text" class="form-control" formControlName="lugar" placeholder="Ubicación del evento" />
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Link de Registro</label>
+            <input type="url" class="form-control" formControlName="linkRegistro" placeholder="https://..." />
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <div class="form-check form-switch form-check-inline">
+          <input class="form-check-input" type="checkbox" formControlName="activo" id="ev-activo" />
+          <label class="form-check-label" for="ev-activo">Evento Activo</label>
+        </div>
+        <div class="form-check form-switch form-check-inline">
+          <input class="form-check-input" type="checkbox" formControlName="destacado" id="ev-destacado" />
+          <label class="form-check-label" for="ev-destacado">Destacado</label>
+        </div>
+      </div>
+
+      <div class="alert alert-danger" *ngIf="error">{{ error }}</div>
+
+      <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-primary" [disabled]="form.invalid || submitting">
+          <i class="fas fa-save"></i> {{ isEdit ? 'Actualizar' : 'Crear' }} Evento
+        </button>
+        <a routerLink="/events" class="btn btn-outline-secondary">Cancelar</a>
+      </div>
+    </form>
+  </div>
+
+  <div class="text-center py-5" *ngIf="loading">
+    <div class="spinner-border text-primary" role="status"></div>
+  </div>
+</div>

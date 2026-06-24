@@ -1,0 +1,192 @@
+$sidebar-width: 260px;
+$sidebar-collapsed: 70px;
+$header-height: 64px;
+$primary: #4A0E4E;
+$secondary: #D4A017;
+$dark: #1a1a2e;
+$success: #2E7D32;
+
+:root {
+  --sidebar-width: #{$sidebar-width};
+  --header-height: #{$header-height};
+  --primary: #{$primary};
+  --secondary: #{$secondary};
+  --dark: #{$dark};
+  --success: #{$success};
+  --font-family: 'Inter', sans-serif;
+  --transition: all 0.3s ease;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font-family);
+  background: #f5f6fa;
+  color: #333;
+  overflow-x: hidden;
+}
+
+.admin-wrapper {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: var(--sidebar-width);
+  background: linear-gradient(180deg, var(--primary) 0%, #2C1810 100%);
+  color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  z-index: 1000;
+  transition: var(--transition);
+  overflow-y: auto;
+
+  .sidebar-header {
+    padding: 20px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: white;
+    }
+    .logo-sub {
+      font-size: 0.75rem;
+      color: var(--secondary);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+  }
+
+  .nav-item {
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    transition: var(--transition);
+    cursor: pointer;
+    i { width: 20px; font-size: 1.1rem; }
+    &:hover, &.active {
+      background: rgba(255,255,255,0.1);
+      color: white;
+    }
+    &.active {
+      border-right: 3px solid var(--secondary);
+    }
+  }
+
+  .nav-section {
+    padding: 16px 24px 8px;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: rgba(255,255,255,0.4);
+  }
+}
+
+.main-content {
+  margin-left: var(--sidebar-width);
+  flex: 1;
+  transition: var(--transition);
+}
+
+.page-header {
+  background: white;
+  padding: 16px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  h2 { font-size: 1.3rem; color: var(--primary); margin: 0; }
+}
+
+.content-wrapper {
+  padding: 24px 32px;
+}
+
+.stat-card {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  transition: var(--transition);
+  &:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+  .stat-icon {
+    width: 48px; height: 48px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 16px;
+  }
+  .stat-value { font-size: 1.8rem; font-weight: 700; color: var(--dark); }
+  .stat-label { font-size: 0.85rem; color: #888; margin-top: 4px; }
+}
+
+.table-container {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+
+.form-container {
+  background: white;
+  border-radius: 12px;
+  padding: 32px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  max-width: 800px;
+}
+
+.badge-status {
+  padding: 4px 12px;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  &.active { background: #e8f5e9; color: #2e7d32; }
+  &.inactive { background: #fbe9e7; color: #c62828; }
+  &.pending { background: #fff8e1; color: #f57f17; }
+}
+
+.btn-action {
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  border: none;
+  display: inline-flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: var(--transition);
+  &:hover { transform: scale(1.1); }
+}
+
+.chart-container {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+
+.image-info-btn {
+  color: #D4A017;
+  cursor: pointer;
+  font-size: 0.9rem;
+  margin-left: 6px;
+  transition: opacity 0.2s;
+  &:hover { opacity: 0.7; }
+}
+
+.upload-info-box {
+  background: #fff8e1;
+  border: 1px solid #ffe082;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 0.78rem;
+  color: #795548;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  i { color: #f57f17; font-size: 0.85rem; }
+}

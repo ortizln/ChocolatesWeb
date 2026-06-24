@@ -1,0 +1,102 @@
+<div class="page-header">
+  <h2><i class="fas fa-photo-video"></i> Galería</h2>
+  <div class="d-flex gap-2">
+    <button class="btn btn-danger btn-sm" *ngIf="selectedImages.size > 0" (click)="deleteSelected()">
+      <i class="fas fa-trash"></i> Eliminar {{ selectedImages.size }}
+    </button>
+    <button class="btn btn-outline-secondary btn-sm" (click)="viewMode = 'grid'" [class.active]="viewMode === 'grid'">
+      <i class="fas fa-th"></i>
+    </button>
+    <button class="btn btn-outline-secondary btn-sm" (click)="viewMode = 'list'" [class.active]="viewMode === 'list'">
+      <i class="fas fa-list"></i>
+    </button>
+    <button class="btn btn-primary" (click)="fileInput.click()">
+      <i class="fas fa-upload"></i> Subir Imágenes
+    </button>
+    <span class="image-info-btn d-inline-flex align-items-center ms-2" (click)="showImageInfo = !showImageInfo" title="Recomendaciones">
+      <i class="fas fa-info-circle"></i>
+    </span>
+    <div class="upload-info-box" *ngIf="showImageInfo" style="position:absolute;top:100%;right:0;z-index:10;min-width:350px">
+      <i class="fas fa-lightbulb"></i>
+      <span>Formatos: JPG, PNG, WebP · Tamaño recomendado: 1920x1080px o mayor · Máx: 10MB por imagen</span>
+    </div>
+    <input #fileInput type="file" accept="image/*" multiple (change)="onFilesSelected($event)" class="d-none" />
+  </div>
+</div>
+
+<div class="content-wrapper">
+  <div class="text-center py-4" *ngIf="uploadProgress">
+    <div class="spinner-border text-primary" role="status"></div>
+    <p class="mt-2 text-muted">Subiendo imágenes...</p>
+  </div>
+
+  <div class="d-flex align-items-center mb-3" *ngIf="images.length > 0 && !uploadProgress">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" (change)="selectAll()"
+        [checked]="selectedImages.size === images.length && images.length > 0" />
+      <label class="form-check-label">Seleccionar todos</label>
+    </div>
+    <span class="text-muted ms-auto">{{ images.length }} imagen(es)</span>
+  </div>
+
+  <!-- Grid View -->
+  <div class="row g-3" *ngIf="viewMode === 'grid' && !uploadProgress">
+    <div class="col-6 col-md-4 col-lg-3 col-xl-2" *ngFor="let img of images">
+      <div class="gallery-item" [class.selected]="selectedImages.has(img.id)">
+        <div class="gallery-check" (click)="toggleSelection(img.id)">
+          <i class="fas" [class.fa-check-circle]="selectedImages.has(img.id)" [class.fa-circle]="!selectedImages.has(img.id)"></i>
+        </div>
+        <img [src]="img.url || img.thumbnailUrl" [alt]="img.alt" class="gallery-img" (click)="toggleSelection(img.id)" />
+        <div class="gallery-actions">
+          <button class="btn btn-sm btn-light" (click)="copyUrl(img.url)" title="Copiar URL"><i class="fas fa-link"></i></button>
+          <button class="btn btn-sm btn-danger" (click)="deleteImage(img.id)" title="Eliminar"><i class="fas fa-trash"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- List View -->
+  <div class="table-container" *ngIf="viewMode === 'list' && !uploadProgress">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <thead class="table-light">
+          <tr>
+            <th style="width:40px;">
+              <input class="form-check-input" type="checkbox" (change)="selectAll()"
+                [checked]="selectedImages.size === images.length && images.length > 0" />
+            </th>
+            <th>Vista Previa</th>
+            <th>Nombre</th>
+            <th>Categoría</th>
+            <th>Tamaño</th>
+            <th>Subido</th>
+            <th style="width:100px;">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let img of images" [class.table-active]="selectedImages.has(img.id)">
+            <td>
+              <input class="form-check-input" type="checkbox" [checked]="selectedImages.has(img.id)" (change)="toggleSelection(img.id)" />
+            </td>
+            <td>
+              <img [src]="img.thumbnailUrl || img.url" style="width:48px;height:48px;object-fit:cover;border-radius:6px;" />
+            </td>
+            <td>{{ img.nombre }}</td>
+            <td><span class="badge bg-light text-dark">{{ img.categoria || 'Sin categoría' }}</span></td>
+            <td>{{ formatFileSize(img.fileSize) }}</td>
+            <td class="small">{{ img.fechaSubida | date:'dd/MM/yyyy' }}</td>
+            <td>
+              <div class="d-flex gap-1">
+                <button class="btn-action" style="background:#e3f2fd;color:#1565c0;" (click)="copyUrl(img.url)" title="Copiar URL"><i class="fas fa-link"></i></button>
+                <button class="btn-action" style="background:#fbe9e7;color:#c62828;" (click)="deleteImage(img.id)" title="Eliminar"><i class="fas fa-trash"></i></button>
+              </div>
+            </td>
+          </tr>
+          <tr *ngIf="images.length === 0">
+            <td colspan="7" class="text-center py-4 text-muted">No hay imágenes. Sube algunas usando el botón "Subir Imágenes"</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

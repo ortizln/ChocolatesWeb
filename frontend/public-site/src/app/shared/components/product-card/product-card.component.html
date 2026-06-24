@@ -1,0 +1,37 @@
+<div class="product-card" *ngIf="product">
+  <a [routerLink]="['/productos', product.slug]" class="product-link">
+    <div class="product-image">
+      <img [src]="product.imageUrl" [alt]="product.name" loading="lazy">
+      <div class="product-overlay">
+        <span class="btn-view-product"><i class="fas fa-eye"></i> Ver producto</span>
+      </div>
+      <div class="product-badges">
+        <span class="badge-featured" *ngIf="product.isFeatured"><i class="fas fa-star"></i> Destacado</span>
+        <span class="badge-discount" *ngIf="product.discountPrice">
+          -{{ ((product.price - product.discountPrice) / product.price * 100) | number:'1.0-0' }}%
+        </span>
+      </div>
+    </div>
+    <div class="product-info">
+      <p class="product-category">{{ product.categoryName }}</p>
+      <h5 class="product-name">{{ product.name }}</h5>
+      <p class="product-code">Código: {{ product.code }}</p>
+      <div class="product-pricing">
+        <span class="product-price" [ngClass]="{ 'has-discount': product.discountPrice }">
+          S/ {{ product.price | number:'1.2-2' }}
+        </span>
+        <span class="product-discount-price" *ngIf="product.discountPrice">
+          S/ {{ product.discountPrice | number:'1.2-2' }}
+        </span>
+      </div>
+      <div class="product-meta">
+        <span class="meta-item">
+          <i class="fas fa-heart"></i> {{ product.likesCount }}
+        </span>
+        <span class="meta-item">
+          <i class="fas fa-eye"></i> {{ product.viewsCount }}
+        </span>
+      </div>
+    </div>
+  </a>
+</div>

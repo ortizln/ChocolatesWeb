@@ -1,0 +1,97 @@
+<div class="blog-detail-page">
+  <section class="page-header">
+    <div class="container">
+      <div class="page-header-content text-center">
+        <h1 class="page-title">{{ post.title }}</h1>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb justify-content-center">
+            <li class="breadcrumb-item"><a routerLink="/">Inicio</a></li>
+            <li class="breadcrumb-item"><a routerLink="/blog">Blog</a></li>
+            <li class="breadcrumb-item active">{{ post.title }}</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </section>
+
+  <section class="post-section">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-10">
+          <!-- Featured Image -->
+          <div class="featured-image">
+            <img [src]="post.image" [alt]="post.title" class="img-fluid">
+            <div class="featured-overlay">
+              <span class="post-category">{{ post.category }}</span>
+              <span class="post-date"><i class="fas fa-calendar-alt"></i> {{ post.date }}</span>
+            </div>
+          </div>
+
+          <!-- Post Content -->
+          <article class="post-content">
+            <div class="post-header">
+              <h2>{{ post.title }}</h2>
+              <div class="post-meta">
+                <div class="post-author">
+                  <img [src]="post.authorAvatar" [alt]="post.author" class="author-img">
+                  <div class="author-info">
+                    <span class="author-name">{{ post.author }}</span>
+                    <span class="author-role">{{ post.authorBio }}</span>
+                  </div>
+                </div>
+                <div class="post-tags">
+                  <span class="tag" *ngFor="let tag of post.tags">#{{ tag }}</span>
+                </div>
+              </div>
+            </div>
+            <div class="post-body" [innerHTML]="post.content"></div>
+
+            <!-- Share Section -->
+            <div class="post-share">
+              <span class="share-label">Comparte este artículo:</span>
+              <div class="share-buttons">
+                <button class="share-btn facebook" (click)="shareOnFacebook()"><i class="fab fa-facebook-f"></i> Facebook</button>
+                <button class="share-btn twitter" (click)="shareOnTwitter()"><i class="fab fa-twitter"></i> Twitter</button>
+                <button class="share-btn whatsapp" (click)="shareOnWhatsApp()"><i class="fab fa-whatsapp"></i> WhatsApp</button>
+                <button class="share-btn copy" (click)="copyLink()"><i class="fas fa-link"></i> Copiar</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Author Bio -->
+          <div class="author-bio-card">
+            <img [src]="post.authorAvatar" [alt]="post.author" class="author-bio-img">
+            <div class="author-bio-info">
+              <h5>{{ post.author }}</h5>
+              <p>{{ post.authorBio }}</p>
+              <div class="author-social">
+                <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Related Posts -->
+          <div class="related-posts">
+            <h3 class="related-title">Artículos Relacionados</h3>
+            <div class="row g-4">
+              <div class="col-md-4" *ngFor="let related of relatedPosts">
+                <div class="related-card">
+                  <div class="related-image">
+                    <img [src]="related.image" [alt]="related.title" loading="lazy">
+                  </div>
+                  <div class="related-info">
+                    <span class="related-category">{{ related.category }}</span>
+                    <h5 class="related-post-title">{{ related.title }}</h5>
+                    <a [routerLink]="['/blog', related.slug]" class="related-link">Leer más <i class="fas fa-arrow-right ms-1"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

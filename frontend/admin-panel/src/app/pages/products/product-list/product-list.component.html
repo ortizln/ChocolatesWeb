@@ -1,0 +1,87 @@
+<div class="page-header">
+  <h2><i class="fas fa-box"></i> Productos</h2>
+  <a routerLink="/products/new" class="btn btn-primary">
+    <i class="fas fa-plus"></i> Nuevo Producto
+  </a>
+</div>
+
+<div class="content-wrapper">
+  <div class="table-container">
+    <div class="d-flex flex-wrap gap-3 mb-3 align-items-center">
+      <div class="input-group" style="max-width: 320px;">
+        <span class="input-group-text"><i class="fas fa-search"></i></span>
+        <input type="text" class="form-control" placeholder="Buscar productos..." [(ngModel)]="search" (input)="applyFilter()" />
+      </div>
+      <select class="form-select" style="max-width: 160px;" [(ngModel)]="statusFilter" (change)="applyFilter()">
+        <option value="">Todos</option>
+        <option value="active">Activos</option>
+        <option value="inactive">Inactivos</option>
+      </select>
+      <span class="text-muted ms-auto">{{ totalItems }} producto(s)</span>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <thead class="table-light">
+          <tr>
+            <th style="width:60px;">Imagen</th>
+            <th>Nombre</th>
+            <th>SKU</th>
+            <th>Precio</th>
+            <th>Stock</th>
+            <th>Categoría</th>
+            <th>Estado</th>
+            <th style="width:120px;">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of filteredProducts">
+            <td>
+              <img [src]="product.imagenUrl || 'assets/img/no-image.png'" class="rounded" style="width:48px;height:48px;object-fit:cover;" />
+            </td>
+            <td>
+              <a [routerLink]="['/products', product.id, 'edit']" class="fw-semibold text-decoration-none">{{ product.nombre }}</a>
+            </td>
+            <td><code>{{ product.sku }}</code></td>
+            <td>\${{ product.precioOferta || product.precio | number:'1.2-2' }}</td>
+            <td>
+              <span [class.text-danger]="product.stock <= 5">{{ product.stock }}</span>
+            </td>
+            <td>{{ product.categoriaNombre }}</td>
+            <td><span class="badge-status" [class]="getStatusClass(product.activo)">{{ product.activo ? 'Activo' : 'Inactivo' }}</span></td>
+            <td>
+              <div class="d-flex gap-1">
+                <a [routerLink]="['/products', product.id, 'edit']" class="btn-action" style="background:#e3f2fd;color:#1565c0;" title="Editar">
+                  <i class="fas fa-edit"></i>
+                </a>
+                <button class="btn-action" [style.background]="product.activo ? '#fff3e0' : '#e8f5e9'" [style.color]="product.activo ? '#e65100' : '#2e7d32'" (click)="toggleStatus(product)" title="Cambiar estado">
+                  <i class="fas" [class.fa-eye]="product.activo" [class.fa-eye-slash]="!product.activo"></i>
+                </button>
+                <button class="btn-action" style="background:#fbe9e7;color:#c62828;" (click)="deleteProduct(product.id)" title="Eliminar">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr *ngIf="filteredProducts.length === 0">
+            <td colspan="8" class="text-center py-4 text-muted">No se encontraron productos</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="d-flex justify-content-center mt-3" *ngIf="totalItems > pageSize">
+      <nav>
+        <ul class="pagination pagination-sm mb-0">
+          <li class="page-item" [class.disabled]="currentPage === 1">
+            <button class="page-link" (click)="currentPage = currentPage - 1; loadProducts()"><i class="fas fa-chevron-left"></i></button>
+          </li>
+          <li class="page-item active"><span class="page-link">{{ currentPage }}</span></li>
+          <li class="page-item" [class.disabled]="currentPage * pageSize >= totalItems">
+            <button class="page-link" (click)="currentPage = currentPage + 1; loadProducts()"><i class="fas fa-chevron-right"></i></button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>

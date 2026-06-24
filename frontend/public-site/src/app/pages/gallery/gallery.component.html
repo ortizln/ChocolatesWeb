@@ -1,0 +1,103 @@
+<div class="gallery-page">
+  <section class="page-header">
+    <div class="container">
+      <div class="page-header-content text-center">
+        <h1 class="page-title">Galería</h1>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb justify-content-center">
+            <li class="breadcrumb-item"><a routerLink="/">Inicio</a></li>
+            <li class="breadcrumb-item active">Galería</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </section>
+
+  <section class="gallery-section">
+    <div class="container">
+      <!-- Tabs -->
+      <div class="gallery-tabs">
+        <button class="gallery-tab" [ngClass]="{ 'active': activeTab === 'albums' }" (click)="setTab('albums')">
+          <i class="fas fa-images"></i> Álbumes
+        </button>
+        <button class="gallery-tab" [ngClass]="{ 'active': activeTab === 'videos' }" (click)="setTab('videos')">
+          <i class="fas fa-video"></i> Videos
+        </button>
+      </div>
+
+      <!-- Albums Tab -->
+      <ng-container *ngIf="activeTab === 'albums'">
+        <!-- Category Filters -->
+        <div class="category-filters">
+          <button class="filter-btn" *ngFor="let cat of categories" [ngClass]="{ 'active': activeCategory === cat.key }" (click)="setCategory(cat.key)">
+            <i class="fas {{ cat.icon }}"></i> {{ cat.name }}
+          </button>
+        </div>
+
+        <!-- Albums Grid -->
+        <div class="row g-4" *ngIf="activeCategory === 'todas'">
+          <div class="col-lg-4 col-md-6" *ngFor="let album of albums">
+            <div class="album-card">
+              <div class="album-cover">
+                <img [src]="album.coverUrl" [alt]="album.name" loading="lazy">
+                <div class="album-overlay">
+                  <span class="album-count"><i class="fas fa-image"></i> {{ album.mediaCount }} fotos</span>
+                  <button class="btn-view-album" (click)="setCategory('productos')">Ver galería <i class="fas fa-arrow-right ms-1"></i></button>
+                </div>
+              </div>
+              <div class="album-info">
+                <h4 class="album-name">{{ album.name }}</h4>
+                <p class="album-description">{{ album.description }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Media Grid -->
+        <div class="media-grid" *ngIf="activeCategory !== 'todas'">
+          <div class="row g-3">
+            <div class="col-lg-3 col-md-4 col-6" *ngFor="let item of filteredMedia">
+              <div class="media-item" (click)="openLightbox(item.url)">
+                <img [src]="item.thumbnail" [alt]="item.title" loading="lazy">
+                <div class="media-overlay">
+                  <i class="fas fa-search-plus"></i>
+                  <span>{{ item.title }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="text-center mt-4">
+            <button class="btn btn-primary btn-purple">Cargar más <i class="fas fa-sync-alt ms-2"></i></button>
+          </div>
+        </div>
+      </ng-container>
+
+      <!-- Videos Tab -->
+      <ng-container *ngIf="activeTab === 'videos'">
+        <div class="row g-4">
+          <div class="col-lg-6" *ngFor="let video of videos">
+            <div class="video-card">
+              <div class="video-thumb">
+                <div class="video-player-wrapper">
+                  <iframe [src]="video.url" [title]="video.title" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+              </div>
+              <div class="video-info">
+                <h5 class="video-title">{{ video.title }}</h5>
+                <span class="video-duration"><i class="fas fa-clock"></i> {{ video.duration }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </section>
+
+  <!-- Lightbox -->
+  <div class="lightbox-overlay" *ngIf="isLightboxOpen" (click)="closeLightbox()">
+    <div class="lightbox-content">
+      <button class="lightbox-close" (click)="closeLightbox()"><i class="fas fa-times"></i></button>
+      <img [src]="lightboxImage" alt="Gallery image" class="lightbox-image">
+    </div>
+  </div>
+</div>

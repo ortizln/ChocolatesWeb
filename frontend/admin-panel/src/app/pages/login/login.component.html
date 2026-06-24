@@ -1,0 +1,59 @@
+<div class="split-screen">
+  <div class="left-panel">
+    <div class="login-container">
+      <div class="login-card">
+        <div class="login-header">
+          <div class="login-logo">
+            <i class="fas fa-crown"></i>
+          </div>
+          <h2>Chocolates Web</h2>
+          <p>Panel Administrativo</p>
+        </div>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+          <div class="form-group">
+            <label for="username">Usuario</label>
+            <div class="input-wrapper">
+              <i class="fas fa-user"></i>
+              <input id="username" type="text" formControlName="username" placeholder="Nombre de usuario"
+                class="form-input" [class.is-invalid]="loginForm.get('username')?.touched && loginForm.get('username')?.invalid" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="password">Contraseña</label>
+            <div class="input-wrapper">
+              <i class="fas fa-lock"></i>
+              <input id="password" type="password" formControlName="password" placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;"
+                class="form-input" [class.is-invalid]="loginForm.get('password')?.touched && loginForm.get('password')?.invalid" />
+            </div>
+          </div>
+          <div class="alert alert-danger" *ngIf="error">
+            <i class="fas fa-exclamation-circle"></i> {{ error }}
+          </div>
+          <button type="submit" class="login-btn" [disabled]="loginForm.invalid || loading">
+            <span *ngIf="!loading">Iniciar Sesión</span>
+            <span *ngIf="loading"><i class="fas fa-spinner fa-spin"></i> Ingresando...</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="right-panel">
+    <div class="carousel-container">
+      <div class="carousel-slide" *ngFor="let item of carouselItems; let i = index" [class.active]="i === currentSlide">
+        <div class="carousel-overlay"></div>
+        <img [src]="item.image" [alt]="item.title" class="carousel-image" />
+        <div class="carousel-content">
+          <h3>{{ item.title }}</h3>
+          <p>{{ item.subtitle }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-indicators">
+      <button *ngFor="let item of carouselItems; let i = index" class="indicator" [class.active]="i === currentSlide"
+        (click)="goToSlide(i)" [attr.aria-label]="'Ir a slide ' + (i + 1)"></button>
+    </div>
+    <div class="carousel-brand">
+      <i class="fas fa-crown"></i> Chocolates Artesanales
+    </div>
+  </div>
+</div>

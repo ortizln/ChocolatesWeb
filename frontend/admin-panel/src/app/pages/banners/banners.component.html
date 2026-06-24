@@ -1,0 +1,126 @@
+<div class="page-header">
+  <h2><i class="fas fa-images"></i> Banners</h2>
+  <button class="btn btn-primary" (click)="openNew()"><i class="fas fa-plus"></i> Nuevo Banner</button>
+</div>
+
+<div class="content-wrapper">
+  <div class="row g-4">
+    <div class="col-12" [class.col-lg-7]="showForm">
+      <div class="table-container">
+        <div class="table-responsive">
+          <table class="table table-hover align-middle mb-0">
+            <thead class="table-light">
+              <tr>
+                <th style="width:60px;">Vista</th>
+                <th>Título</th>
+                <th>Subtítulo</th>
+                <th>Orden</th>
+                <th>Vigencia</th>
+                <th>Estado</th>
+                <th style="width:100px;">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let banner of banners">
+                <td>
+                  <div style="width:48px;height:48px;border-radius:8px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:#aaa;">
+                    <i class="fas fa-image" *ngIf="!banner.imagenUrl"></i>
+                  </div>
+                </td>
+                <td class="fw-semibold">{{ banner.titulo }}</td>
+                <td class="text-muted">{{ banner.subtitulo }}</td>
+                <td><span class="badge bg-light text-dark">{{ banner.orden }}</span></td>
+                <td class="small">{{ banner.fechaInicio | date:'shortDate' }} - {{ banner.fechaFin | date:'shortDate' }}</td>
+                <td><span class="badge-status" [class.active]="banner.activo" [class.inactive]="!banner.activo">{{ banner.activo ? 'Activo' : 'Inactivo' }}</span></td>
+                <td>
+                  <div class="d-flex gap-1">
+                    <button class="btn-action" style="background:#e3f2fd;color:#1565c0;" (click)="openEdit(banner)"><i class="fas fa-edit"></i></button>
+                    <button class="btn-action" style="background:#fbe9e7;color:#c62828;" (click)="onDelete(banner.id)"><i class="fas fa-trash"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr *ngIf="banners.length === 0">
+                <td colspan="7" class="text-center py-4 text-muted">No hay banners</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-lg-5" *ngIf="showForm">
+      <div class="form-container">
+        <h5 class="mb-3">{{ editingBanner ? 'Editar' : 'Nuevo' }} Banner</h5>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Imagen
+              <span class="image-info-btn" (click)="showImageInfo = !showImageInfo" title="Recomendaciones">
+                <i class="fas fa-info-circle"></i>
+              </span>
+            </label>
+            <div class="upload-info-box" *ngIf="showImageInfo">
+              <i class="fas fa-lightbulb"></i>
+              <span>Formato: JPG, PNG o WebP · Tamaño recomendado: 1920x600px · Máx: 5MB</span>
+            </div>
+            <div class="image-upload-wrapper" (click)="fileInput.click()">
+              <img *ngIf="previewImage" [src]="previewImage" class="preview-img" />
+              <div *ngIf="!previewImage" class="upload-placeholder">
+                <i class="fas fa-cloud-upload-alt fa-3x"></i>
+                <p>Seleccionar imagen</p>
+              </div>
+            </div>
+            <input #fileInput type="file" accept="image/*" (change)="onImageSelected($event)" class="d-none" />
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Título *</label>
+            <input type="text" class="form-control" formControlName="titulo" />
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Subtítulo</label>
+            <input type="text" class="form-control" formControlName="subtitulo" />
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Enlace</label>
+            <input type="text" class="form-control" formControlName="linkUrl" placeholder="Ej: /productos" />
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <div class="mb-3">
+                <label class="form-label fw-semibold">Fecha Inicio</label>
+                <input type="date" class="form-control" formControlName="fechaInicio" />
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="mb-3">
+                <label class="form-label fw-semibold">Fecha Fin</label>
+                <input type="date" class="form-control" formControlName="fechaFin" />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <div class="mb-3">
+                <label class="form-label fw-semibold">Orden</label>
+                <input type="number" class="form-control" formControlName="orden" min="0" />
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="mb-3">
+                <div class="form-check form-switch mt-4">
+                  <input class="form-check-input" type="checkbox" formControlName="activo" id="bn-activo" />
+                  <label class="form-check-label" for="bn-activo">Activo</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
+              <i class="fas fa-save"></i> {{ editingBanner ? 'Actualizar' : 'Crear' }}
+            </button>
+            <button type="button" class="btn btn-outline-secondary" (click)="cancel()">Cancelar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

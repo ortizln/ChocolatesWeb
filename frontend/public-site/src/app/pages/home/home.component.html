@@ -1,0 +1,407 @@
+<div class="home-page">
+  <!-- Hero Banner -->
+  <section class="hero-section" id="hero">
+    <div class="hero-slides">
+      <div class="hero-slide" *ngFor="let slide of heroSlides; let i = index" [ngClass]="{ 'active': currentSlide === i }">
+        <div class="hero-bg" [ngStyle]="{ 'background-image': 'url(' + slide.image + ')' }"></div>
+        <div class="hero-overlay"></div>
+        <div class="container h-100">
+          <div class="row h-100 align-items-center">
+            <div class="col-lg-8">
+              <div class="hero-content" [ngClass]="{ 'animate-in': currentSlide === i }">
+                <span class="hero-subtitle">{{ slide.subtitle }}</span>
+                <h1 class="hero-title">{{ slide.title }}</h1>
+                <p class="hero-description">{{ slide.description }}</p>
+                <div class="hero-buttons">
+                  <a [routerLink]="slide.link" class="btn btn-primary btn-gold">{{ slide.cta }}</a>
+                  <a routerLink="/contacto" class="btn btn-outline-light btn-outline-custom">Contáctanos</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-controls">
+      <button class="hero-control hero-prev" (click)="prevSlide()" aria-label="Anterior">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+      <div class="hero-dots">
+        <span *ngFor="let slide of heroSlides; let i = index" class="dot" [ngClass]="{ 'active': currentSlide === i }" (click)="goToSlide(i)"></span>
+      </div>
+      <button class="hero-control hero-next" (click)="nextSlide()" aria-label="Siguiente">
+        <i class="fas fa-chevron-right"></i>
+      </button>
+    </div>
+    <div class="hero-scroll-indicator">
+      <span class="scroll-text">Scroll</span>
+      <span class="scroll-line"></span>
+    </div>
+  </section>
+
+  <!-- Brand Story -->
+  <section class="section brand-story-section fade-in-section">
+    <div class="container">
+      <div class="row g-5 align-items-center">
+        <div class="col-lg-6">
+          <div class="brand-story-image">
+            <img src="assets/images/about-story.jpg" alt="Nuestra Historia" class="img-fluid rounded-4 shadow-lg">
+            <div class="brand-story-badge">
+              <span class="badge-number">30+</span>
+              <span class="badge-text">Años de experiencia</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="brand-story-content">
+            <span class="section-tag">Nuestra Historia</span>
+            <h2 class="section-title">Pasión por el Chocolate <span class="text-gold">Artensanal</span></h2>
+            <p class="section-description">Desde 1995, en Chocolates Artesanales nos dedicamos a crear experiencias únicas a través del chocolate. Nuestra historia comenzó en un pequeño taller familiar en el centro histórico, donde descubrimos que la combinación perfecta de ingredientes naturales y dedicación podía transformar el simple cacao en obras maestras de sabor.</p>
+            <p class="section-description">Hoy, más de tres décadas después, seguimos manteniendo esas mismas recetas tradicionales, combinadas con técnicas innovadoras que nos permiten ofrecer productos de la más alta calidad.</p>
+            <div class="brand-stats">
+              <div class="stat-item">
+                <span class="stat-number">30+</span>
+                <span class="stat-label">Años</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-number">200+</span>
+                <span class="stat-label">Productos</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-number">15K+</span>
+                <span class="stat-label">Clientes</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-number">12</span>
+                <span class="stat-label">Premios</span>
+              </div>
+            </div>
+            <a routerLink="/nosotros" class="btn btn-primary btn-purple mt-3">Conoce más <i class="fas fa-arrow-right ms-2"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories -->
+  <section class="section categories-section fade-in-section">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-tag">Categorías</span>
+        <h2 class="section-title">Explora Nuestras <span class="text-gold">Categorías</span></h2>
+        <p class="section-subtitle">Descubre la variedad de chocolates que tenemos para ti</p>
+      </div>
+      <div class="row g-4">
+        <div class="col-lg-4 col-md-6" *ngFor="let cat of categories">
+          <div class="category-card" [ngStyle]="{ 'background': cat.color }">
+            <div class="category-icon">
+              <i [class]="cat.icon"></i>
+            </div>
+            <h4 class="category-name">{{ cat.name }}</h4>
+            <p class="category-count">{{ cat.count }} productos</p>
+            <a routerLink="/productos" class="category-link">Ver todo <i class="fas fa-arrow-right ms-1"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Products -->
+  <section class="section featured-section fade-in-section">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-tag">Destacados</span>
+        <h2 class="section-title">Productos <span class="text-gold">Destacados</span></h2>
+        <p class="section-subtitle">Nuestros productos más populares y mejor valorados</p>
+      </div>
+      <div class="featured-carousel">
+        <div class="featured-grid">
+          <div class="row g-4 featured-page" *ngFor="let page of featuredPages; let i = index" [ngClass]="{ 'active': featuredIndex === i }">
+            <div class="col-md-4" *ngFor="let product of featuredProducts.slice(i * 3, i * 3 + 3)">
+              <app-product-card [product]="product"></app-product-card>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-nav" *ngIf="featuredPages.length > 1">
+          <button class="carousel-arrow carousel-prev" (click)="prevFeatured()" aria-label="Anterior">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+          <div class="carousel-dots">
+            <span *ngFor="let page of featuredPages; let i = index" class="dot" [ngClass]="{ 'active': featuredIndex === i }" (click)="featuredIndex = i"></span>
+          </div>
+          <button class="carousel-arrow carousel-next" (click)="nextFeatured()" aria-label="Siguiente">
+            <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+      <div class="text-center mt-4">
+        <a routerLink="/productos" class="btn btn-primary btn-purple">Ver todos los productos <i class="fas fa-arrow-right ms-2"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Promotions Slider -->
+  <section class="section promotions-section fade-in-section">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-tag">Ofertas</span>
+        <h2 class="section-title">Promociones <span class="text-gold">Especiales</span></h2>
+        <p class="section-subtitle">No te pierdas nuestras ofertas y descuentos exclusivos</p>
+      </div>
+      <div class="promotion-slider">
+        <div class="promotion-slide" *ngFor="let promo of promotions; let i = index" [ngClass]="{ 'active': promotionSlide === i }">
+          <div class="row g-0 align-items-center">
+            <div class="col-md-6">
+              <div class="promotion-image">
+                <img [src]="promo.image" [alt]="promo.title" class="img-fluid">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="promotion-content">
+                <div class="promo-badge">Oferta Especial</div>
+                <h3 class="promo-title">{{ promo.title }}</h3>
+                <p class="promo-description">{{ promo.description }}</p>
+                <div class="promo-code">
+                  <span class="code-label">Código:</span>
+                  <span class="code-value">{{ promo.code }}</span>
+                </div>
+                <p class="promo-valid">Válido hasta: <strong>{{ promo.validUntil }}</strong></p>
+                <a routerLink="/productos" class="btn btn-primary btn-gold">Aprovechar oferta <i class="fas fa-tag ms-2"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="promotion-controls">
+        <button class="promo-arrow promo-prev" (click)="prevPromotion()" aria-label="Anterior">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <div class="promo-dots">
+          <span *ngFor="let promo of promotions; let i = index" class="dot" [ngClass]="{ 'active': promotionSlide === i }" (click)="promotionSlide = i"></span>
+        </div>
+        <button class="promo-arrow promo-next" (click)="nextPromotion()" aria-label="Siguiente">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Video Section -->
+  <section class="section video-section fade-in-section">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-tag">Multimedia</span>
+        <h2 class="section-title">Conoce Nuestro <span class="text-gold">Proceso</span></h2>
+        <p class="section-subtitle">Descubre cómo elaboramos nuestros chocolates artesanales</p>
+      </div>
+      <div class="video-wrapper">
+        <div class="video-container">
+          <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Chocolates Artesanales - Proceso de Elaboración" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="video-overlay-content">
+          <h3>El Arte del Chocolate</h3>
+          <p>Cada pieza es una obra de arte hecha con dedicación</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Carousel -->
+  <section class="section testimonials-section fade-in-section">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-tag">Testimonios</span>
+        <h2 class="section-title">Lo Que Dicen <span class="text-gold">Nuestros Clientes</span></h2>
+        <p class="section-subtitle">La opinión de quienes ya han disfrutado nuestros productos</p>
+      </div>
+      <div class="testimonials-carousel">
+        <button class="testimonial-arrow testimonial-prev" (click)="prevTestimonial()" aria-label="Anterior">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <div class="testimonial-card" *ngFor="let testimonial of testimonials; let i = index" [ngClass]="{ 'active': testimonialIndex === i }">
+          <div class="testimonial-stars">
+            <i class="fas fa-star" *ngFor="let star of getStarsArray(testimonial.rating); let s = index" [ngClass]="{ 'filled': star }"></i>
+          </div>
+          <p class="testimonial-content">"{{ testimonial.content }}"</p>
+          <div class="testimonial-author">
+            <img [src]="testimonial.avatar" [alt]="testimonial.name" class="testimonial-avatar">
+            <div class="testimonial-info">
+              <h5 class="author-name">{{ testimonial.name }}</h5>
+              <span class="author-role">{{ testimonial.role }}</span>
+            </div>
+          </div>
+        </div>
+        <button class="testimonial-arrow testimonial-next" (click)="nextTestimonial()" aria-label="Siguiente">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+      <div class="testimonial-dots">
+        <span *ngFor="let testimonial of testimonials; let i = index" class="dot" [ngClass]="{ 'active': testimonialIndex === i }" (click)="testimonialIndex = i"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Visitor Counter -->
+  <section class="section visitor-section fade-in-section">
+    <div class="container">
+      <div class="visitor-content text-center">
+        <div class="visitor-icon">
+          <i class="fas fa-users"></i>
+        </div>
+        <h2 class="visitor-title">Únete a Nuestra Comunidad</h2>
+        <p class="visitor-subtitle">Más de <strong class="text-gold">{{ visitorCount }}</strong> visitantes ya nos han visitado</p>
+        <div class="visitor-counter">
+          <div class="counter-item">
+            <span class="counter-number">{{ visitorCount }}</span>
+            <span class="counter-label">Visitantes</span>
+          </div>
+          <div class="counter-item">
+            <span class="counter-number">15K+</span>
+            <span class="counter-label">Clientes Satisfechos</span>
+          </div>
+          <div class="counter-item">
+            <span class="counter-number">98%</span>
+            <span class="counter-label">Satisfacción</span>
+          </div>
+          <div class="counter-item">
+            <span class="counter-number">200+</span>
+            <span class="counter-label">Productos</span>
+          </div>
+        </div>
+        <a routerLink="/productos" class="btn btn-primary btn-gold mt-4">Explorar productos <i class="fas fa-arrow-right ms-2"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog Section -->
+  <section class="section blog-section fade-in-section">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-tag">Blog</span>
+        <h2 class="section-title">Últimas <span class="text-gold">Publicaciones</span></h2>
+        <p class="section-subtitle">Noticias, consejos y todo sobre el mundo del chocolate</p>
+      </div>
+      <div class="row g-4">
+        <div class="col-lg-4 col-md-6" *ngFor="let post of blogPosts">
+          <div class="blog-card">
+            <div class="blog-image">
+              <img [src]="post.image" [alt]="post.title" loading="lazy">
+              <span class="blog-category">{{ post.category }}</span>
+            </div>
+            <div class="blog-info">
+              <div class="blog-meta">
+                <span><i class="fas fa-user"></i> {{ post.author }}</span>
+                <span><i class="fas fa-calendar-alt"></i> {{ post.date }}</span>
+              </div>
+              <h4 class="blog-title">{{ post.title }}</h4>
+              <p class="blog-summary">{{ post.summary }}</p>
+              <a [routerLink]="['/blog', post.slug]" class="blog-read-more">Leer más <i class="fas fa-arrow-right ms-1"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-4">
+        <a routerLink="/blog" class="btn btn-primary btn-purple">Ver todas las publicaciones <i class="fas fa-arrow-right ms-2"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Events Section -->
+  <section class="section events-section fade-in-section">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-tag">Eventos</span>
+        <h2 class="section-title">Próximos <span class="text-gold">Eventos</span></h2>
+        <p class="section-subtitle">No te pierdas nuestros eventos y actividades especiales</p>
+      </div>
+      <div class="row g-4">
+        <div class="col-lg-4 col-md-6" *ngFor="let event of events">
+          <div class="event-card">
+            <div class="event-image">
+              <img [src]="event.image" [alt]="event.title" loading="lazy">
+              <div class="event-date-badge">
+                <span class="event-day">{{ event.date.split(' ')[0] }}</span>
+                <span class="event-month">{{ event.date.split(' ')[1] }}</span>
+              </div>
+            </div>
+            <div class="event-info">
+              <span class="event-type">{{ event.type }}</span>
+              <h4 class="event-title">{{ event.title }}</h4>
+              <div class="event-details">
+                <p><i class="fas fa-clock"></i> {{ event.time }}</p>
+                <p><i class="fas fa-map-marker-alt"></i> {{ event.location }}</p>
+              </div>
+              <a routerLink="/eventos" class="btn btn-sm btn-outline-purple">Más información <i class="fas fa-arrow-right ms-1"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-4">
+        <a routerLink="/eventos" class="btn btn-primary btn-purple">Ver todos los eventos <i class="fas fa-arrow-right ms-2"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Social Media Section -->
+  <section class="section social-section fade-in-section">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-tag">Síguenos</span>
+        <h2 class="section-title">Comparte Nuestra <span class="text-gold">Pasión</span></h2>
+        <p class="section-subtitle">Síguenos en Instagram para contenido exclusivo</p>
+      </div>
+      <div class="social-gallery">
+        <div class="row g-2">
+          <div class="col-4 col-md-2" *ngFor="let item of socialGallery">
+            <div class="social-gallery-item">
+              <img [src]="item.image" alt="Social" loading="lazy">
+              <div class="social-gallery-overlay">
+                <i class="fab fa-instagram"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-4">
+        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-instagram"><i class="fab fa-instagram me-2"></i> Síguenos en Instagram</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact CTA -->
+  <section class="section contact-cta-section fade-in-section">
+    <div class="container">
+      <div class="cta-card">
+        <div class="row align-items-center">
+          <div class="col-lg-8">
+            <div class="cta-content">
+              <h2 class="cta-title">¿Listo para endulzar tu vida?</h2>
+              <p class="cta-description">Contáctanos hoy y descubre el mundo de sabores que tenemos preparado para ti. Haremos de cada momento una experiencia inolvidable.</p>
+            </div>
+          </div>
+          <div class="col-lg-4 text-lg-end">
+            <a routerLink="/contacto" class="btn btn-primary btn-gold btn-lg">Contáctanos <i class="fas fa-envelope ms-2"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Map Section -->
+  <section class="map-section">
+    <div class="container-fluid p-0">
+      <div class="map-wrapper">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3901.999999!2d-77.0427934!3d-12.046374!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTPCsDAyJzQ2LjkiUyA3N8KwMDInMzQuMSJX!5e0!3m2!1ses!2spe!4v1" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <div class="map-overlay-card">
+          <div class="map-card-content">
+            <h4><i class="fas fa-map-marker-alt text-gold me-2"></i> Visítanos</h4>
+            <p>Av. Principal 123, Centro Histórico</p>
+            <p><i class="fas fa-phone-alt text-gold me-2"></i> +51 999 888 777</p>
+            <p><i class="fas fa-envelope text-gold me-2"></i> info&#64;chocolatesartesanales.com</p>
+            <a routerLink="/contacto" class="btn btn-sm btn-purple mt-2">Cómo llegar <i class="fas fa-directions ms-1"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,17 @@
+:host { display: contents; }
+
+.image-upload-wrapper {
+  border: 2px dashed #ccc;
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s;
+  min-height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &:hover { border-color: #4A0E4E; }
+  .preview-img { max-width: 100%; max-height: 180px; border-radius: 8px; }
+  .upload-placeholder { color: #aaa; }
+}

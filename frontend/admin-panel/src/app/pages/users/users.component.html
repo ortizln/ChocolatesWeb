@@ -1,0 +1,108 @@
+<div class="page-header">
+  <h2><i class="fas fa-users"></i> Usuarios</h2>
+  <button class="btn btn-primary" (click)="openNew()"><i class="fas fa-plus"></i> Nuevo Usuario</button>
+</div>
+
+<div class="content-wrapper">
+  <div class="row g-4">
+    <div class="col-12" [class.col-lg-7]="showForm || showPasswordForm">
+      <div class="table-container">
+        <div class="table-responsive">
+          <table class="table table-hover align-middle mb-0">
+            <thead class="table-light">
+              <tr>
+                <th>Usuario</th>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Rol</th>
+                <th>Estado</th>
+                <th style="width:140px;">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let user of users">
+                <td><code>{{ user.username }}</code></td>
+                <td>{{ user.nombre }}</td>
+                <td>{{ user.email }}</td>
+                <td><span class="badge" [class]="roleBadgeClass[user.role]">{{ user.role }}</span></td>
+                <td><span class="badge-status" [class.active]="user.activo" [class.inactive]="!user.activo">{{ user.activo ? 'Activo' : 'Inactivo' }}</span></td>
+                <td>
+                  <div class="d-flex gap-1">
+                    <button class="btn-action" style="background:#e3f2fd;color:#1565c0;" (click)="openEdit(user)" title="Editar"><i class="fas fa-edit"></i></button>
+                    <button class="btn-action" style="background:#f3e5f5;color:#6a1b9a;" (click)="openPassword(user)" title="Cambiar contraseña"><i class="fas fa-key"></i></button>
+                    <button class="btn-action" style="background:#fbe9e7;color:#c62828;" (click)="deleteUser(user.id)" title="Eliminar"><i class="fas fa-trash"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr *ngIf="users.length === 0">
+                <td colspan="6" class="text-center py-4 text-muted">No hay usuarios</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-lg-5" *ngIf="showForm">
+      <div class="form-container">
+        <h5 class="mb-3">{{ editingUser ? 'Editar' : 'Nuevo' }} Usuario</h5>
+        <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Username *</label>
+            <input type="text" class="form-control" formControlName="username" />
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Nombre *</label>
+            <input type="text" class="form-control" formControlName="nombre" />
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Email *</label>
+            <input type="email" class="form-control" formControlName="email" />
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Rol</label>
+            <select class="form-select" formControlName="role">
+              <option value="ADMIN">Administrador</option>
+              <option value="EDITOR">Editor</option>
+              <option value="VIEWER">Visor</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" formControlName="activo" id="user-activo" />
+              <label class="form-check-label" for="user-activo">Usuario Activo</label>
+            </div>
+          </div>
+          <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">
+              <i class="fas fa-save"></i> {{ editingUser ? 'Actualizar' : 'Crear' }}
+            </button>
+            <button type="button" class="btn btn-outline-secondary" (click)="cancel()">Cancelar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="col-12 col-lg-5" *ngIf="showPasswordForm">
+      <div class="form-container">
+        <h5 class="mb-3">Cambiar Contraseña - {{ editingUser?.username }}</h5>
+        <form [formGroup]="passwordForm" (ngSubmit)="onChangePassword()">
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Nueva Contraseña *</label>
+            <input type="password" class="form-control" formControlName="newPassword" />
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Confirmar Contraseña *</label>
+            <input type="password" class="form-control" formControlName="confirmPassword" />
+          </div>
+          <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-primary" [disabled]="passwordForm.invalid">
+              <i class="fas fa-save"></i> Cambiar
+            </button>
+            <button type="button" class="btn btn-outline-secondary" (click)="cancel()">Cancelar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

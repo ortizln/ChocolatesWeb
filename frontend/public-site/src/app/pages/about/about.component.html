@@ -1,0 +1,169 @@
+<div class="about-page">
+  <section class="page-header">
+    <div class="container">
+      <div class="page-header-content text-center">
+        <h1 class="page-title">Nosotros</h1>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb justify-content-center">
+            <li class="breadcrumb-item"><a routerLink="/">Inicio</a></li>
+            <li class="breadcrumb-item active">Nosotros</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </section>
+
+  <!-- Company Story -->
+  <section class="story-section">
+    <div class="container">
+      <div class="row g-5 align-items-center">
+        <div class="col-lg-6">
+          <div class="story-image">
+            <img src="assets/images/about-story.jpg" alt="Nuestra Historia" class="img-fluid">
+            <div class="story-years-badge">
+              <span>30+</span>
+              <span>Años</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="story-content">
+            <span class="section-tag">Nuestra Historia</span>
+            <h2 class="section-title">Una Tradición <span class="text-gold">que Endulza Vidas</span></h2>
+            <p>Todo comenzó en 1995, cuando Carlos Mendoza, un apasionado chocolatero formado en las mejores escuelas de Bélgica y Suiza, decidió regresar a su tierra natal para crear chocolates que combinaran la tradición europea con los mejores ingredientes peruanos.</p>
+            <p>Lo que empezó como un pequeño taller en el centro histórico de Lima, pronto se convirtió en un referente de la chocolatería artesanal en el Perú. Nuestra filosofía siempre ha sido la misma: seleccionar los mejores granos de cacao, trabajar con productores locales que comparten nuestros valores de comercio justo, y elaborar cada pieza con la dedicación que solo la artesanía puede ofrecer.</p>
+            <p>Hoy, con más de 30 años de trayectoria, seguimos manteniendo viva esa pasión por el chocolate. Cada tableta, trufa o bombón que elaboramos es un testimonio de nuestro compromiso con la calidad, la sostenibilidad y la tradición chocolatera.</p>
+            <div class="story-stat-row">
+              <div class="story-stat">
+                <span class="stat-num">30+</span>
+                <span class="stat-lbl">Años</span>
+              </div>
+              <div class="story-stat">
+                <span class="stat-num">200+</span>
+                <span class="stat-lbl">Productos</span>
+              </div>
+              <div class="story-stat">
+                <span class="stat-num">15K+</span>
+                <span class="stat-lbl">Clientes</span>
+              </div>
+              <div class="story-stat">
+                <span class="stat-num">12</span>
+                <span class="stat-lbl">Premios</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mission Vision Values -->
+  <section class="mvv-section">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="mvv-card mission">
+            <div class="mvv-icon"><i class="fas fa-bullseye"></i></div>
+            <h3>Misión</h3>
+            <p>Crear experiencias únicas a través del chocolate artesanal, utilizando ingredientes seleccionados y procesos tradicionales que honran la cultura cacaotera peruana.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="mvv-card vision">
+            <div class="mvv-icon"><i class="fas fa-eye"></i></div>
+            <h3>Visión</h3>
+            <p>Ser reconocidos como la marca líder de chocolate artesanal en Latinoamérica, destacando por nuestra calidad, innovación y compromiso con el desarrollo sostenible.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="mvv-card values">
+            <div class="mvv-icon"><i class="fas fa-heart"></i></div>
+            <h3>Valores</h3>
+            <ul>
+              <li><i class="fas fa-check-circle"></i> Pasión por la calidad</li>
+              <li><i class="fas fa-check-circle"></i> Comercio justo</li>
+              <li><i class="fas fa-check-circle"></i> Sostenibilidad</li>
+              <li><i class="fas fa-check-circle"></i> Innovación</li>
+              <li><i class="fas fa-check-circle"></i> Responsabilidad social</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team Section -->
+  <section class="team-section">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-tag">Nuestro Equipo</span>
+        <h2 class="section-title">Conoce a Nuestro <span class="text-gold">Equipo</span></h2>
+        <p class="section-subtitle">Personas apasionadas que hacen posible cada creación</p>
+      </div>
+      <div class="row g-4">
+        <div class="col-lg-3 col-md-6" *ngFor="let member of team">
+          <div class="team-card">
+            <div class="team-image">
+              <img [src]="member.image" [alt]="member.name" loading="lazy">
+              <div class="team-overlay">
+                <a href="#" class="team-social-link"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="team-social-link"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="team-social-link"><i class="fab fa-linkedin-in"></i></a>
+              </div>
+            </div>
+            <div class="team-info">
+              <h4 class="team-name">{{ member.name }}</h4>
+              <span class="team-role">{{ member.role }}</span>
+              <p class="team-bio">{{ member.bio }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Awards -->
+  <section class="awards-section">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-tag">Reconocimientos</span>
+        <h2 class="section-title">Nuestros <span class="text-gold">Premios</span></h2>
+        <p class="section-subtitle">Certificaciones y galardones que avalan nuestra calidad</p>
+      </div>
+      <div class="row g-4">
+        <div class="col-lg-4 col-md-6" *ngFor="let award of awards">
+          <div class="award-card">
+            <div class="award-icon"><i [class]="award.icon"></i></div>
+            <div class="award-content">
+              <span class="award-year">{{ award.year }}</span>
+              <h4 class="award-title">{{ award.title }}</h4>
+              <p class="award-org">{{ award.organization }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Timeline -->
+  <section class="timeline-section">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-tag">Trayectoria</span>
+        <h2 class="section-title">Nuestra <span class="text-gold">Línea de Tiempo</span></h2>
+        <p class="section-subtitle">Los hitos más importantes de nuestra historia</p>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item" *ngFor="let item of timeline; let i = index">
+          <div class="timeline-marker" [ngClass]="{ 'even': i % 2 === 0 }">
+            <span class="timeline-year">{{ item.year }}</span>
+          </div>
+          <div class="timeline-content">
+            <h4 class="timeline-title">{{ item.title }}</h4>
+            <p class="timeline-description">{{ item.description }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,330 @@
+$purple: #4A0E4E;
+$gold: #D4A017;
+$dark: #2C1810;
+$light: #FFF8F0;
+$font-serif: 'Playfair Display', serif;
+
+.page-header {
+  padding: 140px 0 80px;
+  background: linear-gradient(135deg, $dark, $purple);
+  .page-title { font-family: $font-serif; font-size: 2.8rem; color: #fff; }
+  .breadcrumb {
+    background: transparent;
+    .breadcrumb-item {
+      a { color: rgba(255,255,255,0.7); text-decoration: none; &:hover { color: $gold; } }
+      &.active { color: $gold; }
+      + .breadcrumb-item::before { color: rgba(255,255,255,0.4); }
+    }
+  }
+}
+
+.section-tag {
+  display: inline-block;
+  background: rgba($gold, 0.1);
+  color: $gold;
+  padding: 6px 18px;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+}
+
+.section-title {
+  font-family: $font-serif;
+  font-size: 2.4rem;
+  color: $dark;
+  margin-bottom: 15px;
+}
+
+.text-gold { color: $gold; }
+
+.section-subtitle { color: #888; font-size: 1.05rem; max-width: 550px; margin: 0 auto; }
+
+// Story Section
+.story-section {
+  padding: 80px 0;
+  background: #fff;
+}
+
+.story-image {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+
+  img { width: 100%; border-radius: 20px; }
+}
+
+.story-years-badge {
+  position: absolute;
+  bottom: -15px;
+  right: 30px;
+  background: $gold;
+  color: #fff;
+  padding: 18px 24px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba($gold, 0.3);
+
+  span:first-child { display: block; font-family: $font-serif; font-size: 1.6rem; font-weight: 700; line-height: 1; }
+  span:last-child { font-size: 0.8rem; opacity: 0.9; }
+}
+
+.story-content {
+  p { color: #666; line-height: 1.8; margin-bottom: 18px; font-size: 0.95rem; }
+}
+
+.story-stat-row {
+  display: flex;
+  gap: 35px;
+  margin-top: 30px;
+}
+
+.story-stat {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-num {
+  font-family: $font-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: $purple;
+  line-height: 1;
+}
+
+.stat-lbl { font-size: 0.85rem; color: #999; }
+
+// MVV Section
+.mvv-section {
+  padding: 80px 0;
+  background: $light;
+}
+
+.mvv-card {
+  padding: 40px 30px;
+  border-radius: 16px;
+  height: 100%;
+  transition: all 0.4s ease;
+
+  &:hover { transform: translateY(-5px); }
+
+  &.mission { background: #fff; border-top: 4px solid $purple; }
+  &.vision { background: #fff; border-top: 4px solid $gold; }
+  &.values { background: #fff; border-top: 4px solid $dark; }
+}
+
+.mvv-icon {
+  font-size: 2.2rem;
+  margin-bottom: 20px;
+
+  .mission & { color: $purple; }
+  .vision & { color: $gold; }
+  .values & { color: $dark; }
+}
+
+.mvv-card {
+  h3 { font-family: $font-serif; font-size: 1.3rem; color: $dark; margin-bottom: 15px; }
+  p { color: #777; font-size: 0.9rem; line-height: 1.7; }
+  ul { list-style: none; padding: 0; margin: 0;
+    li { padding: 6px 0; font-size: 0.9rem; color: #666;
+      i { color: $gold; margin-right: 8px; font-size: 0.85rem; }
+    }
+  }
+}
+
+// Team Section
+.team-section {
+  padding: 80px 0;
+  background: #fff;
+}
+
+.team-card {
+  text-align: center;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  transition: all 0.3s ease;
+  height: 100%;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba($purple, 0.12);
+
+    .team-image img { transform: scale(1.08); }
+    .team-overlay { opacity: 1; }
+  }
+}
+
+.team-image {
+  position: relative;
+  height: 320px;
+  overflow: hidden;
+
+  img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+}
+
+.team-overlay {
+  position: absolute; inset: 0;
+  background: rgba($purple, 0.6);
+  display: flex; align-items: center; justify-content: center;
+  gap: 12px; opacity: 0; transition: opacity 0.3s ease;
+}
+
+.team-social-link {
+  width: 40px; height: 40px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; text-decoration: none;
+  transition: all 0.3s ease;
+
+  &:hover { background: $gold; color: #fff; }
+}
+
+.team-info {
+  padding: 25px;
+}
+
+.team-name { font-family: $font-serif; color: $dark; font-size: 1.1rem; margin-bottom: 4px; }
+
+.team-role { color: $gold; font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 10px; }
+
+.team-bio { color: #888; font-size: 0.85rem; line-height: 1.6; margin: 0; }
+
+// Awards
+.awards-section {
+  padding: 80px 0;
+  background: $light;
+}
+
+.award-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: #fff;
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+  height: 100%;
+
+  &:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba($purple, 0.1); }
+}
+
+.award-icon {
+  width: 60px; height: 60px;
+  background: rgba($gold, 0.1);
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem; color: $gold; flex-shrink: 0;
+}
+
+.award-year {
+  font-size: 0.8rem; color: $gold; font-weight: 600;
+}
+
+.award-title {
+  font-family: $font-serif; color: $dark; font-size: 1rem; margin: 4px 0;
+}
+
+.award-org { font-size: 0.85rem; color: #888; margin: 0; }
+
+// Timeline
+.timeline-section {
+  padding: 80px 0;
+  background: #fff;
+}
+
+.timeline {
+  position: relative;
+  max-width: 700px;
+  margin: 50px auto 0;
+  padding-left: 40px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(to bottom, $purple, $gold);
+    border-radius: 2px;
+  }
+}
+
+.timeline-item {
+  position: relative;
+  padding-bottom: 35px;
+
+  &:last-child { padding-bottom: 0; }
+}
+
+.timeline-marker {
+  position: absolute;
+  left: -32px;
+  top: 4px;
+  z-index: 2;
+
+  &.even .timeline-year {
+    background: $gold;
+  }
+}
+
+.timeline-year {
+  width: 34px;
+  height: 34px;
+  background: $purple;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  font-weight: 700;
+  box-shadow: 0 4px 10px rgba($purple, 0.3);
+}
+
+.timeline-content {
+  background: $light;
+  padding: 20px 25px;
+  border-radius: 12px;
+  margin-left: 10px;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: $purple;
+
+    .timeline-title { color: #fff; }
+    .timeline-description { color: rgba(255,255,255,0.8); }
+  }
+}
+
+.timeline-title {
+  font-family: $font-serif;
+  color: $dark;
+  font-size: 1.05rem;
+  margin-bottom: 6px;
+  transition: color 0.3s ease;
+}
+
+.timeline-description {
+  color: #888;
+  font-size: 0.85rem;
+  margin: 0;
+  line-height: 1.5;
+  transition: color 0.3s ease;
+}
+
+@media (max-width: 767.98px) {
+  .page-title { font-size: 2rem; }
+  .section-title { font-size: 1.8rem; }
+  .story-stat-row { flex-wrap: wrap; gap: 20px; }
+  .team-image { height: 280px; }
+  .timeline { padding-left: 30px; }
+  .timeline-marker { left: -22px; }
+  .timeline-year { width: 28px; height: 28px; font-size: 0.6rem; }
+}

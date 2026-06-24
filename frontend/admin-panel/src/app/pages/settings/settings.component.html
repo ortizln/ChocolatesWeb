@@ -1,0 +1,156 @@
+<div class="page-header">
+  <h2><i class="fas fa-cog"></i> Configuración</h2>
+</div>
+
+<div class="content-wrapper">
+  <div class="form-container" style="max-width:900px;" *ngIf="!loading">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <ul class="nav nav-tabs mb-4" id="settingsTabs">
+        <li class="nav-item">
+          <a class="nav-link active" data-bs-toggle="tab" href="#general">General</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-bs-toggle="tab" href="#seo">SEO</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-bs-toggle="tab" href="#redes">Redes Sociales</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-bs-toggle="tab" href="#avanzado">Avanzado</a>
+        </li>
+      </ul>
+
+      <div class="tab-content">
+        <div class="tab-pane fade show active" id="general">
+          <div class="row">
+            <div class="col-md-8">
+              <div class="mb-3">
+                <label class="form-label fw-semibold">Título del Sitio *</label>
+                <input type="text" class="form-control" formControlName="sitioTitulo" />
+              </div>
+              <div class="mb-3">
+                <label class="form-label fw-semibold">Descripción</label>
+                <textarea class="form-control" formControlName="sitioDescripcion" rows="2"></textarea>
+              </div>
+              <div class="mb-3">
+                <label class="form-label fw-semibold">Email de Contacto</label>
+                <input type="email" class="form-control" formControlName="emailContacto" />
+              </div>
+              <div class="mb-3">
+                <label class="form-label fw-semibold">Teléfono</label>
+                <input type="text" class="form-control" formControlName="telefonoContacto" />
+              </div>
+              <div class="mb-3">
+                <label class="form-label fw-semibold">Dirección</label>
+                <textarea class="form-control" formControlName="direccion" rows="2"></textarea>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="mb-3">
+                <label class="form-label fw-semibold">Logo
+                  <span class="image-info-btn" (click)="showLogoInfo = !showLogoInfo" title="Recomendaciones">
+                    <i class="fas fa-info-circle"></i>
+                  </span>
+                </label>
+                <div class="upload-info-box" *ngIf="showLogoInfo">
+                  <i class="fas fa-lightbulb"></i>
+                  <span>Formato: PNG · Tamaño recomendado: 200x200px · Fondo transparente · Máx: 500KB</span>
+                </div>
+                <div class="image-upload-wrapper" (click)="logoInput.click()">
+                  <img *ngIf="logoPreview" [src]="logoPreview" class="preview-img" />
+                  <div *ngIf="!logoPreview" class="upload-placeholder">
+                    <i class="fas fa-image fa-2x"></i>
+                  </div>
+                </div>
+                <input #logoInput type="file" accept="image/*" (change)="onLogoSelected($event)" class="d-none" />
+              </div>
+              <div class="mb-3">
+                <label class="form-label fw-semibold">Favicon
+                  <span class="image-info-btn" (click)="showFaviconInfo = !showFaviconInfo" title="Recomendaciones">
+                    <i class="fas fa-info-circle"></i>
+                  </span>
+                </label>
+                <div class="upload-info-box" *ngIf="showFaviconInfo">
+                  <i class="fas fa-lightbulb"></i>
+                  <span>Formato: PNG o ICO · Tamaño: 32x32px o 16x16px · Máx: 100KB</span>
+                </div>
+                <div class="image-upload-wrapper" (click)="faviconInput.click()">
+                  <img *ngIf="faviconPreview" [src]="faviconPreview" class="preview-img" />
+                  <div *ngIf="!faviconPreview" class="upload-placeholder">
+                    <i class="fas fa-star fa-2x"></i>
+                  </div>
+                </div>
+                <input #faviconInput type="file" accept="image/*" (change)="onFaviconSelected($event)" class="d-none" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane fade" id="seo">
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Meta Descripción</label>
+            <textarea class="form-control" formControlName="metaDescripcion" rows="3"></textarea>
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Meta Keywords</label>
+            <input type="text" class="form-control" formControlName="metaKeywords" placeholder="Separadas por coma" />
+          </div>
+        </div>
+
+        <div class="tab-pane fade" id="redes">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label class="form-label fw-semibold"><i class="fab fa-facebook"></i> Facebook</label>
+                <input type="url" class="form-control" formControlName="facebook" />
+              </div>
+              <div class="mb-3">
+                <label class="form-label fw-semibold"><i class="fab fa-instagram"></i> Instagram</label>
+                <input type="url" class="form-control" formControlName="instagram" />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label class="form-label fw-semibold"><i class="fab fa-twitter"></i> Twitter/X</label>
+                <input type="url" class="form-control" formControlName="twitter" />
+              </div>
+              <div class="mb-3">
+                <label class="form-label fw-semibold"><i class="fab fa-youtube"></i> YouTube</label>
+                <input type="url" class="form-control" formControlName="youtube" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane fade" id="avanzado">
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Google Analytics ID</label>
+            <input type="text" class="form-control" formControlName="googleAnalyticsId" placeholder="G-XXXXXXXXXX" />
+          </div>
+          <div class="mb-3">
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" formControlName="mantenimiento" id="mantenimiento" />
+              <label class="form-check-label" for="mantenimiento">Modo Mantenimiento</label>
+            </div>
+            <small class="text-muted d-block mt-1">Al activarlo, el sitio mostrará una página de mantenimiento a los visitantes</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="alert alert-success" *ngIf="successMsg">
+        <i class="fas fa-check-circle"></i> {{ successMsg }}
+      </div>
+      <div class="alert alert-danger" *ngIf="errorMsg">{{ errorMsg }}</div>
+
+      <div class="d-flex gap-2 mt-3">
+        <button type="submit" class="btn btn-primary" [disabled]="form.invalid || saving">
+          <i class="fas fa-save"></i> Guardar Configuración
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <div class="text-center py-5" *ngIf="loading">
+    <div class="spinner-border text-primary" role="status"></div>
+  </div>
+</div>

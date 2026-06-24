@@ -1,0 +1,96 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: chocolates-web
+
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:chocolates_db}
+    username: ${DB_USER:postgres}
+    password: ${DB_PASSWORD:12345}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 5
+      idle-timeout: 300000
+      connection-timeout: 20000
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+        jdbc:
+          batch_size: 50
+        order_inserts: true
+        order_updates: true
+
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+      write-durations-as-timestamps: false
+    deserialization:
+      fail-on-unknown-properties: false
+    date-format: yyyy-MM-dd'T'HH:mm:ss
+    time-zone: America/Lima
+
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 50MB
+      max-request-size: 100MB
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${MAIL_USERNAME:}
+    password: ${MAIL_PASSWORD:}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+app:
+  jwt:
+    secret: ${JWT_SECRET:YmFzZTY0RW5jb2RlZFNlY3JldEtleUZvckNob2NvbGF0ZXNXZWJBcHBsaWNhdGlvbjIwMjQ=}
+    expiration: ${JWT_EXPIRATION:86400000}
+    refresh-expiration: 604800000
+
+  minio:
+    endpoint: ${MINIO_ENDPOINT:}
+    access-key: ${MINIO_ACCESS_KEY:chocolates_minio}
+    secret-key: ${MINIO_SECRET_KEY:Ch0c0l4t3s_M1n10_2024!}
+    bucket: ${MINIO_BUCKET:chocolates-media}
+    region: us-east-1
+
+  upload:
+    dir: ${UPLOAD_DIR:./uploads}
+    allowed-types: image/jpeg,image/png,image/webp,image/gif,video/mp4,video/webm,application/pdf
+    max-size: 52428800
+
+  analytics:
+    geoip-db-path: ${GEOIP_DB_PATH:./data/GeoLite2-City.mmdb}
+
+  cors:
+    allowed-origins: ${CORS_ORIGINS:http://localhost:4200,http://localhost:4300,https://chocolates.local}
+
+logging:
+  level:
+    com.chocolates: DEBUG
+    org.springframework.security: INFO
+    org.hibernate.SQL: WARN
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: when-authorized

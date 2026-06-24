@@ -1,0 +1,69 @@
+<div class="page-header">
+  <h2><i class="fas fa-chart-line"></i> Analítica</h2>
+  <div class="d-flex gap-2">
+    <button class="btn btn-outline-success btn-sm" (click)="exportExcel()"><i class="fas fa-file-excel"></i> Excel</button>
+    <button class="btn btn-outline-danger btn-sm" (click)="exportPDF()"><i class="fas fa-file-pdf"></i> PDF</button>
+    <button class="btn btn-outline-secondary btn-sm" (click)="exportCSV()"><i class="fas fa-file-csv"></i> CSV</button>
+  </div>
+</div>
+
+<div class="content-wrapper">
+  <div class="d-flex flex-wrap align-items-center gap-3 mb-4">
+    <div class="input-group" style="max-width:200px;">
+      <span class="input-group-text">Desde</span>
+      <input type="date" class="form-control" [(ngModel)]="startDate" (change)="applyDateFilter()" />
+    </div>
+    <div class="input-group" style="max-width:200px;">
+      <span class="input-group-text">Hasta</span>
+      <input type="date" class="form-control" [(ngModel)]="endDate" (change)="applyDateFilter()" />
+    </div>
+    <select class="form-select" style="max-width:150px;" [(ngModel)]="dateRange" (change)="applyDateFilter()">
+      <option value="week">Esta Semana</option>
+      <option value="month">Este Mes</option>
+      <option value="quarter">Este Trimestre</option>
+      <option value="year">Este Año</option>
+    </select>
+  </div>
+
+  <div class="row g-4 mb-4">
+    <div class="col-6 col-md-4 col-xl-2" *ngFor="let stat of [
+      { value: stats.totalVisitas | number, label: 'Visitas Totales', icon: 'fa-chart-simple', bg: '#f3e5f5', color: '#4A0E4E' },
+      { value: stats.visitasHoy, label: 'Visitas Hoy', icon: 'fa-eye', bg: '#e3f2fd', color: '#1565C0' },
+      { value: stats.usuariosRegistrados, label: 'Usuarios', icon: 'fa-users', bg: '#e8f5e9', color: '#2E7D32' },
+      { value: stats.tasaConversion + '%', label: 'Conversión', icon: 'fa-percentage', bg: '#fff3e0', color: '#E65100' },
+      { value: stats.pedidosTotales, label: 'Pedidos', icon: 'fa-shopping-cart', bg: '#fce4ec', color: '#C62828' },
+      { value: '$' + stats.ingresosTotales | number, label: 'Ingresos', icon: 'fa-dollar-sign', bg: '#e8f5e9', color: '#2E7D32' }
+    ]">
+      <div class="stat-card">
+        <div class="stat-icon" [style.background]="stat.bg">
+          <i class="fas" [class]="stat.icon" [style.color]="stat.color"></i>
+        </div>
+        <div class="stat-value">{{ stat.value }}</div>
+        <div class="stat-label">{{ stat.label }}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-12 col-lg-8">
+      <div class="chart-container">
+        <h5 class="mb-3">Visitas</h5>
+        <canvas baseChart
+          [type]="visitasPorDia.type"
+          [data]="visitasPorDia.data"
+          [options]="visitasPorDia.options">
+        </canvas>
+      </div>
+    </div>
+    <div class="col-12 col-lg-4">
+      <div class="chart-container">
+        <h5 class="mb-3">Productos Más Vendidos</h5>
+        <canvas baseChart
+          [type]="productosMasVendidos.type"
+          [data]="productosMasVendidos.data"
+          [options]="productosMasVendidos.options">
+        </canvas>
+      </div>
+    </div>
+  </div>
+</div>

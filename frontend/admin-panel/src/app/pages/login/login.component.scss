@@ -1,0 +1,213 @@
+.split-screen {
+  display: flex;
+  min-height: 100vh;
+}
+
+.left-panel {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #4A0E4E 0%, #2C1810 100%);
+  padding: 20px;
+}
+
+.login-container {
+  width: 100%;
+  max-width: 420px;
+}
+
+.login-card {
+  background: white;
+  border-radius: 20px;
+  padding: 48px 40px;
+  width: 100%;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: 36px;
+  .login-logo {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #4A0E4E, #2C1810);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+    i { font-size: 2rem; color: #D4A017; }
+  }
+  h2 { font-size: 1.5rem; color: #4A0E4E; font-weight: 700; margin-bottom: 4px; }
+  p { color: #888; font-size: 0.9rem; }
+}
+
+.login-form {
+  .form-group {
+    margin-bottom: 20px;
+    label {
+      display: block;
+      font-size: 0.85rem;
+      color: #555;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+  }
+
+  .input-wrapper {
+    position: relative;
+    i {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #aaa;
+      font-size: 1rem;
+    }
+  }
+
+  .form-input {
+    width: 100%;
+    padding: 12px 12px 12px 42px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    transition: border-color 0.3s;
+    outline: none;
+    font-family: inherit;
+    &:focus { border-color: #4A0E4E; }
+    &.is-invalid { border-color: #dc3545; }
+  }
+
+  .alert {
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    margin-bottom: 16px;
+  }
+
+  .login-btn {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #4A0E4E, #2C1810);
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: inherit;
+    &:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(74,14,78,0.3); }
+    &:disabled { opacity: 0.6; cursor: not-allowed; }
+  }
+}
+
+.right-panel {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  background: #1a1a2e;
+}
+
+.carousel-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.carousel-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+  &.active { opacity: 1; }
+}
+
+.carousel-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.carousel-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(74,14,78,0.7) 0%, rgba(44,24,16,0.7) 100%);
+  z-index: 1;
+}
+
+.carousel-content {
+  position: absolute;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  z-index: 2;
+  width: 80%;
+  max-width: 500px;
+  h3 {
+    color: #D4A017;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  }
+  p {
+    color: #fff;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    opacity: 0.9;
+  }
+}
+
+.carousel-indicators {
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 3;
+}
+
+.indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.5);
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s;
+  padding: 0;
+  &.active {
+    background: #D4A017;
+    border-color: #D4A017;
+    transform: scale(1.2);
+  }
+  &:hover { border-color: #D4A017; }
+}
+
+.carousel-brand {
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #D4A017;
+  font-size: 1.2rem;
+  font-weight: 600;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  i { font-size: 1.4rem; }
+}
+
+@media (max-width: 768px) {
+  .split-screen { flex-direction: column; }
+  .left-panel { padding: 40px 20px; }
+  .right-panel { display: none; }
+}

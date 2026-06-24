@@ -1,0 +1,96 @@
+<div class="page-header">
+  <h2><i class="fas fa-envelope"></i> Mensajes</h2>
+  <span class="badge bg-warning text-dark" *ngIf="unreadCount > 0">{{ unreadCount }} sin leer</span>
+</div>
+
+<div class="content-wrapper">
+  <div class="row g-4">
+    <div class="col-12 col-lg-5">
+      <div class="table-container">
+        <div class="d-flex gap-2 mb-3">
+          <div class="input-group flex-grow-1">
+            <span class="input-group-text"><i class="fas fa-search"></i></span>
+            <input type="text" class="form-control" placeholder="Buscar..." [(ngModel)]="search" (input)="applyFilter()" />
+          </div>
+          <select class="form-select" style="max-width:140px;" [(ngModel)]="filterRead" (change)="applyFilter()">
+            <option value="">Todos</option>
+            <option value="unread">Sin leer</option>
+            <option value="read">Leídos</option>
+            <option value="answered">Respondidos</option>
+          </select>
+        </div>
+
+        <div class="message-list">
+          <div class="message-item" *ngFor="let msg of filteredMessages"
+            [class.unread]="!msg.leido"
+            [class.selected]="selectedMessage?.id === msg.id"
+            (click)="selectMessage(msg)">
+            <div class="d-flex justify-content-between align-items-start">
+              <div>
+                <strong>{{ msg.nombre }}</strong>
+                <span class="badge bg-danger ms-1" *ngIf="!msg.leido" style="font-size:0.6rem;">NUEVO</span>
+              </div>
+              <small class="text-muted">{{ msg.fechaEnvio | date:'dd/MM' }}</small>
+            </div>
+            <div class="fw-semibold small mt-1">{{ msg.asunto }}</div>
+            <div class="text-muted small text-truncate mt-1">{{ msg.mensaje }}</div>
+          </div>
+          <div class="text-center py-4 text-muted" *ngIf="filteredMessages.length === 0">
+            No hay mensajes
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-lg-7">
+      <div class="table-container" *ngIf="selectedMessage; else noSelection">
+        <div class="d-flex justify-content-between align-items-start mb-3">
+          <div>
+            <h5 class="mb-1">{{ selectedMessage.asunto }}</h5>
+            <div class="text-muted small">
+              <strong>{{ selectedMessage.nombre }}</strong> &lt;{{ selectedMessage.email }}&gt;
+              <span *ngIf="selectedMessage.telefono"> | {{ selectedMessage.telefono }}</span>
+            </div>
+            <small class="text-muted">{{ selectedMessage.fechaEnvio | date:'dd/MM/yyyy HH:mm' }}</small>
+          </div>
+          <button class="btn btn-sm btn-outline-danger" (click)="deleteMessage(selectedMessage.id)">
+            <i class="fas fa-trash"></i>
+          </button>
+        </div>
+        <hr />
+        <div class="message-content mb-3" style="white-space:pre-wrap;">{{ selectedMessage.mensaje }}</div>
+
+        <div class="reply-section" *ngIf="selectedMessage.respondido && selectedMessage.respuesta">
+          <div class="bg-light p-3 rounded mb-3">
+            <small class="text-muted fw-semibold">Tu respuesta:</small>
+            <div style="white-space:pre-wrap;">{{ selectedMessage.respuesta }}</div>
+          </div>
+        </div>
+
+        <div *ngIf="!showReplyForm && !selectedMessage.respondido">
+          <button class="btn btn-primary" (click)="toggleReplyForm()">
+            <i class="fas fa-reply"></i> Responder
+          </button>
+        </div>
+
+        <div *ngIf="showReplyForm">
+          <label class="form-label fw-semibold">Responder a {{ selectedMessage.nombre }}</label>
+          <textarea class="form-control mb-2" rows="4" [(ngModel)]="replyText" placeholder="Escribe tu respuesta..."></textarea>
+          <div class="d-flex gap-2">
+            <button class="btn btn-primary" (click)="sendReply()" [disabled]="!replyText.trim()">
+              <i class="fas fa-paper-plane"></i> Enviar
+            </button>
+            <button class="btn btn-outline-secondary" (click)="toggleReplyForm()">Cancelar</button>
+          </div>
+        </div>
+      </div>
+
+      <ng-template #noSelection>
+        <div class="table-container text-center py-5 text-muted">
+          <i class="fas fa-envelope-open-text fa-4x mb-3"></i>
+          <p>Selecciona un mensaje para leerlo</p>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>
