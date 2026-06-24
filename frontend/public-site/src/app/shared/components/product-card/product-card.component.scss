@@ -1,30 +1,24 @@
 .product-card {
-  background: #fff;
-  border-radius: 16px;
+  background: var(--bg-card);
+  border-radius: var(--radius);
   overflow: hidden;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  transition: all .3s ease;
+  box-shadow: var(--shadow);
   height: 100%;
 
   &:hover {
     transform: translateY(-8px);
-    box-shadow: 0 12px 40px rgba(74, 14, 78, 0.15);
+    box-shadow: var(--shadow-lg);
 
-    .product-overlay {
-      opacity: 1;
-    }
-
-    .product-image img {
-      transform: scale(1.1);
-    }
+    .product-overlay { opacity: 1; }
+    .product-image img { transform: scale(1.1); }
   }
 }
 
 .product-link {
   text-decoration: none;
   color: inherit;
-  display: flex;
-  flex-direction: column;
+  display: flex;  flex-direction: column;
   height: 100%;
 }
 
@@ -32,95 +26,75 @@
   position: relative;
   overflow: hidden;
   height: 260px;
-
   img {
-    width: 100%;
-    height: 100%;
+    width: 100%;  height: 100%;
     object-fit: cover;
-    transition: transform 0.5s ease;
+    transition: transform .5s ease;
   }
 }
 
 .product-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(74, 14, 78, 0.7);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  position: absolute;  inset: 0;
+  background: rgba(74,107,63,.75);
+  display: flex;  align-items: center;  justify-content: center;
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity .3s ease;
 }
 
 .btn-view-product {
-  background: #D4A017;
+  background: var(--secondary);
   color: #fff;
   padding: 10px 24px;
   border-radius: 50px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  transition: all 0.3s ease;
-
-  i {
-    margin-right: 6px;
-  }
-
+  font-size: .9rem;  font-weight: 600;
+  transition: all .3s ease;
+  i { margin-right: 6px; }
   &:hover {
     background: #fff;
-    color: #4A0E4E;
+    color: var(--primary);
   }
 }
 
 .product-badges {
   position: absolute;
-  top: 12px;
-  left: 12px;
-  display: flex;
-  flex-direction: column;
+  top: 12px;  left: 12px;
+  display: flex;  flex-direction: column;
   gap: 6px;
 }
 
 .badge-featured {
-  background: #D4A017;
+  background: var(--secondary);
   color: #fff;
   padding: 4px 12px;
   border-radius: 4px;
-  font-size: 0.75rem;
-  font-weight: 600;
-
-  i {
-    margin-right: 4px;
-  }
+  font-size: .75rem;  font-weight: 600;
+  i { margin-right: 4px; }
 }
 
 .badge-discount {
-  background: #dc3545;
+  background: var(--danger);
   color: #fff;
   padding: 4px 12px;
   border-radius: 4px;
-  font-size: 0.75rem;
-  font-weight: 600;
+  font-size: .75rem;  font-weight: 600;
 }
 
 .product-info {
   padding: 20px;
   flex: 1;
-  display: flex;
-  flex-direction: column;
+  display: flex;  flex-direction: column;
 }
 
 .product-category {
-  color: #D4A017;
-  font-size: 0.8rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  color: var(--secondary);
+  font-size: .8rem;  font-weight: 600;
+  text-transform: uppercase;  letter-spacing: 1px;
   margin-bottom: 6px;
 }
 
 .product-name {
-  font-family: 'Playfair Display', serif;
-  color: #2C1810;
+  font-family: var(--font-heading);
+  color: var(--text);
   font-size: 1.1rem;
   margin-bottom: 4px;
   line-height: 1.3;
@@ -131,51 +105,40 @@
 }
 
 .product-code {
-  color: #999;
-  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-size: .8rem;
   margin-bottom: 12px;
 }
 
 .product-pricing {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  display: flex;  align-items: center;  gap: 10px;
   margin-bottom: 12px;
   margin-top: auto;
 }
 
 .product-price {
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: #4A0E4E;
-
+  font-size: 1.2rem;  font-weight: 700;
+  color: var(--primary);
   &.has-discount {
-    color: #999;
+    color: var(--text-muted);
     text-decoration: line-through;
-    font-size: 1rem;
-    font-weight: 400;
+    font-size: 1rem;  font-weight: 400;
   }
 }
 
 .product-discount-price {
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: #dc3545;
+  font-size: 1.3rem;  font-weight: 700;
+  color: var(--danger);
 }
 
 .product-meta {
-  display: flex;
-  gap: 16px;
+  display: flex;  gap: 16px;
   padding-top: 12px;
-  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  border-top: 1px solid var(--border);
 }
 
 .meta-item {
-  font-size: 0.85rem;
-  color: #777;
-
-  i {
-    margin-right: 4px;
-    color: #D4A017;
-  }
+  font-size: .85rem;
+  color: var(--text-muted);
+  i { margin-right: 4px;  color: var(--secondary); }
 }
