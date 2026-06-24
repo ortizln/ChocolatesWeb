@@ -1,82 +1,49 @@
-import { Component } from '@angular/core';
-import { RouterOutlet, RouterLink, RouterLinkActive, Router } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
+import { HeaderComponent } from './shared/components/header/header.component';
+import { AuthService } from './shared/services/auth.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, CommonModule],
+  imports: [RouterOutlet, CommonModule, SidebarComponent, HeaderComponent],
   template: `
-    <div class="admin-wrapper">
-      <aside class="sidebar" *ngIf="isLoggedIn">
-        <div class="sidebar-header">
-          <div class="logo">Chocolates Web</div>
-          <div class="logo-sub">Panel Administrativo</div>
-        </div>
-        <nav>
-          <div class="nav-section">Principal</div>
-          <a class="nav-item" routerLink="/dashboard" routerLinkActive="active">
-            <i class="fas fa-chart-pie"></i> Dashboard
-          </a>
-          <div class="nav-section">Contenido</div>
-          <a class="nav-item" routerLink="/products" routerLinkActive="active">
-            <i class="fas fa-box"></i> Productos
-          </a>
-          <a class="nav-item" routerLink="/categories" routerLinkActive="active">
-            <i class="fas fa-tags"></i> Categorías
-          </a>
-          <a class="nav-item" routerLink="/tags" routerLinkActive="active">
-            <i class="fas fa-hashtag"></i> Etiquetas
-          </a>
-          <a class="nav-item" routerLink="/banners" routerLinkActive="active">
-            <i class="fas fa-images"></i> Banners
-          </a>
-          <a class="nav-item" routerLink="/carousels" routerLinkActive="active">
-            <i class="fas fa-sliders-h"></i> Carruseles
-          </a>
-          <a class="nav-item" routerLink="/blog" routerLinkActive="active">
-            <i class="fas fa-newspaper"></i> Blog
-          </a>
-          <a class="nav-item" routerLink="/events" routerLinkActive="active">
-            <i class="fas fa-calendar-alt"></i> Eventos
-          </a>
-          <a class="nav-item" routerLink="/gallery" routerLinkActive="active">
-            <i class="fas fa-photo-video"></i> Galería
-          </a>
-          <div class="nav-section">Gestión</div>
-          <a class="nav-item" routerLink="/messages" routerLinkActive="active">
-            <i class="fas fa-envelope"></i> Mensajes
-          </a>
-          <a class="nav-item" routerLink="/users" routerLinkActive="active">
-            <i class="fas fa-users"></i> Usuarios
-          </a>
-          <a class="nav-item" routerLink="/analytics" routerLinkActive="active">
-            <i class="fas fa-chart-line"></i> Analítica
-          </a>
-          <a class="nav-item" routerLink="/settings" routerLinkActive="active">
-            <i class="fas fa-cog"></i> Configuración
-          </a>
-          <div class="nav-section">Sistema</div>
-          <a class="nav-item" (click)="logout()" style="cursor:pointer">
-            <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
-          </a>
-        </nav>
-      </aside>
-      <div class="main-content">
+    <ng-container *ngIf="isLoggedIn; else loginView">
+      <app-sidebar></app-sidebar>
+      <app-header></app-header>
+      <main class="main-content">
         <router-outlet></router-outlet>
-      </div>
-    </div>
+      </main>
+    </ng-container>
+
+    <ng-template #loginView>
+      <router-outlet></router-outlet>
+    </ng-template>
   `,
-  styles: [':host { display: contents; }']
+  styles: [`
+    :host { display: contents; }
+    .main-content {
+      margin-top: var(--header-h);
+      margin-left: var(--sidebar-w);
+      padding: 24px;
+      min-height: calc(100vh - var(--header-h));
+      background: var(--bg);
+      transition: margin-left .25s ease;
+    }
+    @media (max-width: 1199px) {
+      .main-content { margin-left: var(--sidebar-w-collapsed); }
+    }
+    @media (max-width: 767px) {
+      .main-content { margin-left: 0; padding: 16px; }
+    }
+  `]
 })
 export class AppComponent {
-  constructor(private router: Router) {}
+  private authService = inject(AuthService);
+
   get isLoggedIn(): boolean {
-    return typeof localStorage !== 'undefined' && !!localStorage.getItem('accessToken');
-  }
-  logout(): void {
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('refreshToken');
-    this.router.navigate(['/login']);
+    return this.authService.isAuthenticated();
   }
 }

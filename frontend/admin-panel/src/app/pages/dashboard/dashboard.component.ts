@@ -1,35 +1,17 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { BaseChartDirective } from 'ng2-charts';
-import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
-import { AnalyticsData } from '../../shared/models';
+import { ChartConfiguration } from 'chart.js';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
   imports: [CommonModule, RouterLink, BaseChartDirective],
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styles: [':host { display: contents; }']
 })
 export class DashboardComponent implements OnInit {
-  @ViewChild('visitasChart') visitasChart!: BaseChartDirective;
-  @ViewChild('likesChart') likesChart!: BaseChartDirective;
-
-  stats = {
-    visitasHoy: 0,
-    visitasSemana: 0,
-    visitasMes: 0,
-    totalProductos: 0,
-    totalPosts: 0,
-    totalEventos: 0,
-    totalUsuarios: 0,
-    totalMensajes: 0
-  };
-
-  topProducts: any[] = [];
-  topPosts: any[] = [];
-
   statCards: any[] = [];
 
   visitasPorDia: ChartConfiguration<'line'> = {
@@ -39,11 +21,11 @@ export class DashboardComponent implements OnInit {
       datasets: [{
         data: [],
         label: 'Visitas',
-        borderColor: '#4A0E4E',
-        backgroundColor: 'rgba(74,14,78,0.1)',
+        borderColor: '#4A6B3F',
+        backgroundColor: 'rgba(74,107,63,0.1)',
         fill: true,
         tension: 0.4,
-        pointBackgroundColor: '#4A0E4E',
+        pointBackgroundColor: '#4A6B3F',
         pointBorderColor: '#fff',
         pointBorderWidth: 2,
         pointRadius: 4
@@ -51,9 +33,7 @@ export class DashboardComponent implements OnInit {
     },
     options: {
       responsive: true,
-      plugins: {
-        legend: { display: false }
-      },
+      plugins: { legend: { display: false } },
       scales: {
         y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.05)' } },
         x: { grid: { display: false } }
@@ -67,7 +47,7 @@ export class DashboardComponent implements OnInit {
       labels: [],
       datasets: [{
         data: [],
-        backgroundColor: ['#4A0E4E', '#D4A017', '#2E7D32', '#C62828', '#1565C0', '#6A1B9A', '#FF8F00'],
+        backgroundColor: ['#4A6B3F', '#5B9B8C', '#6B8F5E', '#7DBDB0', '#3A5A2F'],
         borderWidth: 0
       }]
     },
@@ -82,37 +62,27 @@ export class DashboardComponent implements OnInit {
     }
   };
 
+  topProducts: any[] = [];
+  topPosts: any[] = [];
+
   ngOnInit() {
     this.loadDashboardData();
   }
 
   private loadDashboardData(): void {
-    // TODO: Replace with actual API call
-    // this.analyticsService.getAnalytics().subscribe(data => { ... });
     this.setMockData();
   }
 
   private setMockData(): void {
-    this.stats = {
-      visitasHoy: 284,
-      visitasSemana: 1847,
-      visitasMes: 8234,
-      totalProductos: 24,
-      totalPosts: 18,
-      totalEventos: 6,
-      totalUsuarios: 12,
-      totalMensajes: 47
-    };
-
     this.statCards = [
-      { value: this.stats.visitasHoy, label: 'Visitas Hoy', icon: 'fa-eye', bg: '#e3f2fd', color: '#1565C0' },
-      { value: this.stats.totalProductos, label: 'Productos', icon: 'fa-box', bg: '#f3e5f5', color: '#4A0E4E' },
-      { value: this.stats.totalPosts, label: 'Posts', icon: 'fa-newspaper', bg: '#e8f5e9', color: '#2E7D32' },
-      { value: this.stats.totalEventos, label: 'Eventos', icon: 'fa-calendar-alt', bg: '#fff3e0', color: '#E65100' },
-      { value: this.stats.totalUsuarios, label: 'Usuarios', icon: 'fa-users', bg: '#e3f2fd', color: '#1565C0' },
-      { value: this.stats.totalMensajes, label: 'Mensajes', icon: 'fa-envelope', bg: '#fce4ec', color: '#C62828' },
-      { value: this.stats.visitasSemana, label: 'Visitas Semanales', icon: 'fa-chart-line', bg: '#f3e5f5', color: '#6A1B9A' },
-      { value: this.stats.visitasMes, label: 'Visitas Mensuales', icon: 'fa-chart-bar', bg: '#e8f5e9', color: '#2E7D32' }
+      { value: 284, label: 'Visitas Hoy', icon: 'fa-eye', bg: '#E6F7EE', color: '#48BB78', trend: 12 },
+      { value: 24, label: 'Productos', icon: 'fa-box', bg: '#F0F5EE', color: '#4A6B3F', trend: 8 },
+      { value: 18, label: 'Posts', icon: 'fa-newspaper', bg: '#EEF6F4', color: '#5B9B8C', trend: 5 },
+      { value: 6, label: 'Eventos', icon: 'fa-calendar-alt', bg: '#FEF3E2', color: '#ED8936' },
+      { value: 12, label: 'Usuarios', icon: 'fa-users', bg: '#E0F5FE', color: '#4FD1C5' },
+      { value: 47, label: 'Mensajes', icon: 'fa-envelope', bg: '#FDE8E8', color: '#FC5454' },
+      { value: 1847, label: 'Visitas Semanales', icon: 'fa-chart-line', bg: '#F0F5EE', color: '#4A6B3F', trend: -3 },
+      { value: 8234, label: 'Visitas Mensuales', icon: 'fa-chart-bar', bg: '#EEF6F4', color: '#5B9B8C', trend: 15 }
     ];
 
     this.visitasPorDia.data.labels = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
