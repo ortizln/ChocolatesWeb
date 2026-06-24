@@ -6,8 +6,8 @@ Arquitectura: Frontend nativo (Angular) + Backend en Docker + BD nativa (Postgre
 
 ```
 192.168.100.215
-├── /chocolateswebb/        → Frontend publico (Angular)
-├── /chocolateswebb/admin/  → Panel admin (Angular)
+├── /chocolateweb/        → Frontend publico (Angular)
+├── /chocolateweb/admin/  → Panel admin (Angular)
 ├── /api/v1/...             → Backend API (Spring Boot en Docker)
 └── /uploads/               → Archivos subidos
 ```
@@ -58,4 +58,4 @@ NGINX_WEBROOT=/usr/share/nginx/html ./deploy-frontend.sh
 | `docker-compose.backend.yml` | Docker Compose solo para el backend (sin BD) |
 | `deploy-backend.sh` | Script de despliegue del backend en Docker |
 | `deploy-frontend.sh` | Script de build + copia del frontend Angular |
-| `nginx-chocolates.conf` | Configuracion de nginx para subpath /chocolateswebb |
+| `nginx-chocolates.conf` | Configuracion de nginx para subpath /chocolateweb |

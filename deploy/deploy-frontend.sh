@@ -2,8 +2,8 @@
 # ============================================================
 # deploy-frontend.sh
 # Construye los frontends Angular y los copia al webroot
-# Sirve bajo subpath /chocolateswebb
-# Dominio: http://192.168.100.215/chocolateswebb
+# Sirve bajo subpath /chocolateweb
+# Dominio: http://192.168.100.215/chocolateweb
 # ============================================================
 set -euo pipefail
 
@@ -15,8 +15,8 @@ ADMIN_DIR="$PROJECT_ROOT/frontend/admin-panel"
 # Directorio donde nginx servira los archivos
 # Ajusta segun tu instalacion de nginx
 NGINX_WEBROOT="${NGINX_WEBROOT:-/usr/share/nginx/html}"
-DEST_PUBLIC="$NGINX_WEBROOT/chocolateswebb"
-DEST_ADMIN="$NGINX_WEBROOT/chocolateswebb/admin"
+DEST_PUBLIC="$NGINX_WEBROOT/chocolateweb"
+DEST_ADMIN="$NGINX_WEBROOT/chocolateweb/admin"
 
 echo "=========================================="
 echo "  Chocolates Web - Deploy Frontend"
@@ -40,15 +40,15 @@ if [ ! -d "$ADMIN_DIR/node_modules" ]; then
 fi
 
 # 2. Construir frontend publico con base-href para subpath
-echo "[*] Construyendo frontend publico (base-href=/chocolateswebb/)..."
+echo "[*] Construyendo frontend publico (base-href=/chocolateweb/)..."
 cd "$PUBLIC_DIR"
-npx ng build --configuration=production --base-href=/chocolateswebb/
+npx ng build --configuration=production --base-href=/chocolateweb/
 echo "[+] Build publico completado"
 
 # 3. Construir panel admin con base-href para subpath
-echo "[*] Construyendo panel admin (base-href=/chocolateswebb/admin/)..."
+echo "[*] Construyendo panel admin (base-href=/chocolateweb/admin/)..."
 cd "$ADMIN_DIR"
-npx ng build --configuration=production --base-href=/chocolateswebb/admin/
+npx ng build --configuration=production --base-href=/chocolateweb/admin/
 echo "[+] Build admin completado"
 
 # 4. Copiar archivos al webroot de nginx
@@ -73,6 +73,6 @@ echo "[+] Archivos copiados correctamente"
 echo ""
 echo "=========================================="
 echo "  Frontend desplegado correctamente"
-echo "  Publico: http://192.168.100.215/chocolateswebb/"
-echo "  Admin:   http://192.168.100.215/chocolateswebb/admin/"
+echo "  Publico: http://192.168.100.215/chocolateweb/"
+echo "  Admin:   http://192.168.100.215/chocolateweb/admin/"
 echo "=========================================="

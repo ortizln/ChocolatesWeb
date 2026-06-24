@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
+import { RouterOutlet, RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -70,12 +70,13 @@ import { CommonModule } from '@angular/common';
   styles: [':host { display: contents; }']
 })
 export class AppComponent {
+  constructor(private router: Router) {}
   get isLoggedIn(): boolean {
     return typeof localStorage !== 'undefined' && !!localStorage.getItem('accessToken');
   }
   logout(): void {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
-    window.location.href = '/admin/login';
+    this.router.navigate(['/login']);
   }
 }
