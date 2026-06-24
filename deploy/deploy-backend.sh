@@ -9,7 +9,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
 BACKEND_DIR="$PROJECT_ROOT/backend"
-ENV_FILE="${1:-$SCRIPT_DIR/.env.producction}"
+ENV_FILE="${1:-$SCRIPT_DIR/.env.production}"
 
 echo "=========================================="
 echo "  Chocolates Web - Deploy Backend"
