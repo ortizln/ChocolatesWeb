@@ -28,11 +28,11 @@ services:
       - "8080"
     environment:
       - SPRING_PROFILES_ACTIVE=prod
-      - DB_HOST=postgres
+      - DB_HOST=192.168.100.215
       - DB_PORT=5432
       - DB_NAME=chocolates_db
-      - DB_USER=chocolates_user
-      - DB_PASSWORD=Ch0c0l4t3s#2024!
+      - DB_USER=postgres
+      - DB_PASSWORD=086411421
       - JWT_SECRET=YmFzZTY0RW5jb2RlZFNlY3JldEtleUZvckNob2NvbGF0ZXNXZWJBcHBsaWNhdGlvbjIwMjQ=
       - JWT_EXPIRATION=86400000
       - MINIO_ENDPOINT=http://minio:9000
@@ -57,13 +57,13 @@ services:
       - "5432:5432"
     environment:
       - POSTGRES_DB=chocolates_db
-      - POSTGRES_USER=chocolates_user
-      - POSTGRES_PASSWORD=Ch0c0l4t3s#2024!
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=086411421
     volumes:
       - postgres-data:/var/lib/postgresql/data
       - ../database/init:/docker-entrypoint-initdb.d
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U chocolates_user -d chocolates_db"]
+      test: ["CMD-SHELL", "pg_isready -U postgres -d chocolates_db"]
       interval: 10s
       timeout: 5s
       retries: 5

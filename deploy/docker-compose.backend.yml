@@ -1,0 +1,33 @@
+version: '3.8'
+
+# ============================================================
+# CHOCOLATES WEB - Backend (Spring Boot) en Docker
+# Base de datos: NATIVA (NO en Docker)
+# ============================================================
+# Uso:
+#   docker compose -f docker-compose.backend.yml --env-file .env up -d
+# ============================================================
+
+services:
+  spring-app:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+    container_name: chocolates-backend
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE:-prod}
+      - DB_HOST=${DB_HOST:-192.168.100.215}
+      - DB_PORT=${DB_PORT:-5432}
+      - DB_NAME=${DB_NAME:-chocolates_db}
+      - DB_USER=${DB_USER:-postgres}
+      - DB_PASSWORD=${DB_PASSWORD:-086411421}
+      - JWT_SECRET=${JWT_SECRET}
+      - JWT_EXPIRATION=${JWT_EXPIRATION:-86400000}
+      - CORS_ORIGINS=${CORS_ORIGINS:-http://192.168.100.215:4200,http://192.168.100.215:4300,http://192.168.100.215}
+      - UPLOAD_DIR=${UPLOAD_DIR:-/app/uploads}
+    volumes:
+      - ../backend/uploads:/app/uploads
+    restart: unless-stopped
+    network_mode: host
