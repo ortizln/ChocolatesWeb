@@ -15,7 +15,7 @@ services:
       dockerfile: Dockerfile
     container_name: chocolates-backend
     ports:
-      - "8080:8080"
+      - "8082:8082"
     environment:
       - SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE:-prod}
       - DB_HOST=${DB_HOST:-192.168.100.215}

@@ -54,4 +54,4 @@ docker compose -f "$SCRIPT_DIR/docker-compose.backend.yml" --env-file "$ENV_FILE
 
 echo "[+] Backend desplegado correctamente"
 echo "    Logs: docker compose -f $SCRIPT_DIR/docker-compose.backend.yml logs -f spring-app"
-echo "    API:  http://192.168.100.215:8080/api/v1"
+echo "    API:  http://192.168.100.215:8082/api/v1"
