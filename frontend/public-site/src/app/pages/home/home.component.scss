@@ -1,6 +1,6 @@
 // Variables
-$purple: #4A0E4E;
-$gold: #D4A017;
+$purple: #5A3E2B;
+$gold: #C9A227;
 $dark: #2C1810;
 $light: #FFF8F0;
 $font-serif: 'Playfair Display', serif;
@@ -11,7 +11,7 @@ $font-serif: 'Playfair Display', serif;
 }
 
 @mixin gradient-purple {
-  background: linear-gradient(135deg, #4A0E4E, #2C1810);
+  background: linear-gradient(135deg, $purple, $dark);
 }
 
 @mixin gradient-gold {

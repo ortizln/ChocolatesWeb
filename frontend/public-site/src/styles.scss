@@ -44,7 +44,7 @@ a { color: $c-gold; text-decoration: none; transition: color .3s ease;
   display: inline-flex; align-items: center; gap: 8px;
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(201,162,39,.4);
+    box-shadow: 0 8px 30px rgba($c-gold, 0.4);
     color: $c-black-deep;
   }
 }
@@ -80,7 +80,7 @@ a { color: $c-gold; text-decoration: none; transition: color .3s ease;
   display: inline-flex; align-items: center; gap: 8px;
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(111,78,55,.4);
+    box-shadow: 0 8px 30px rgba($c-coffee, 0.4);
   }
 }
 
@@ -128,7 +128,7 @@ a { color: $c-gold; text-decoration: none; transition: color .3s ease;
 }
 
 // --- Background Sections ---
-.bg-dark   { background: $c-bg-deep; }
+.bg-dark   { background: $c-black-deep; }
 .bg-card   { background: $c-bg-card; }
 .bg-gold-bg { background: rgba($c-gold, .05); }
 
