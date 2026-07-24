@@ -47,40 +47,53 @@
             </div>
             <div class="col-md-4">
               <div class="mb-3">
-                <label class="form-label fw-semibold">Logo
+                <label class="form-label fw-semibold">Logo Claro
                   <span class="image-info-btn" (click)="showLogoInfo = !showLogoInfo" title="Recomendaciones">
                     <i class="fas fa-info-circle"></i>
                   </span>
                 </label>
                 <div class="upload-info-box" *ngIf="showLogoInfo">
                   <i class="fas fa-lightbulb"></i>
-                  <span>Formato: PNG · Tamaño recomendado: 200x200px · Fondo transparente · Máx: 500KB</span>
+                  <span>Para header sobre fondo oscuro/transparente. PNG transparente · 200x60px aprox · Máx: 2MB</span>
                 </div>
-                <div class="image-upload-wrapper" (click)="logoInput.click()">
-                  <img *ngIf="logoPreview" [src]="logoPreview" class="preview-img" />
-                  <div *ngIf="!logoPreview" class="upload-placeholder">
+                <div class="image-upload-wrapper" (click)="logoLightInput.click()" [class.uploading]="uploadingLight">
+                  <img *ngIf="logoLightPreview" [src]="logoLightPreview" class="preview-img" />
+                  <div *ngIf="!logoLightPreview" class="upload-placeholder">
                     <i class="fas fa-image fa-2x"></i>
+                    <small class="d-block mt-1">Click para subir</small>
+                  </div>
+                  <div *ngIf="uploadingLight" class="upload-spinner">
+                    <div class="spinner-border spinner-border-sm text-light"></div>
+                    <span>Subiendo...</span>
                   </div>
                 </div>
-                <input #logoInput type="file" accept="image/*" (change)="onLogoSelected($event)" class="d-none" />
+                <input #logoLightInput type="file" accept="image/png,image/svg+xml,image/webp" (change)="onLogoLightSelected($event)" class="d-none" />
+                <small class="text-muted d-block mt-1" *ngIf="logoLightPreview">Actual: {{ logoLightPreview }}</small>
               </div>
+
               <div class="mb-3">
-                <label class="form-label fw-semibold">Favicon
+                <label class="form-label fw-semibold">Logo Oscuro
                   <span class="image-info-btn" (click)="showFaviconInfo = !showFaviconInfo" title="Recomendaciones">
                     <i class="fas fa-info-circle"></i>
                   </span>
                 </label>
                 <div class="upload-info-box" *ngIf="showFaviconInfo">
                   <i class="fas fa-lightbulb"></i>
-                  <span>Formato: PNG o ICO · Tamaño: 32x32px o 16x16px · Máx: 100KB</span>
+                  <span>Para header con scroll (fondo claro). PNG · 200x60px aprox · Máx: 2MB</span>
                 </div>
-                <div class="image-upload-wrapper" (click)="faviconInput.click()">
-                  <img *ngIf="faviconPreview" [src]="faviconPreview" class="preview-img" />
-                  <div *ngIf="!faviconPreview" class="upload-placeholder">
-                    <i class="fas fa-star fa-2x"></i>
+                <div class="image-upload-wrapper" (click)="logoDarkInput.click()" [class.uploading]="uploadingDark">
+                  <img *ngIf="logoDarkPreview" [src]="logoDarkPreview" class="preview-img" />
+                  <div *ngIf="!logoDarkPreview" class="upload-placeholder">
+                    <i class="fas fa-image fa-2x"></i>
+                    <small class="d-block mt-1">Click para subir</small>
+                  </div>
+                  <div *ngIf="uploadingDark" class="upload-spinner">
+                    <div class="spinner-border spinner-border-sm text-light"></div>
+                    <span>Subiendo...</span>
                   </div>
                 </div>
-                <input #faviconInput type="file" accept="image/*" (change)="onFaviconSelected($event)" class="d-none" />
+                <input #logoDarkInput type="file" accept="image/png,image/svg+xml,image/webp" (change)="onLogoDarkSelected($event)" class="d-none" />
+                <small class="text-muted d-block mt-1" *ngIf="logoDarkPreview">Actual: {{ logoDarkPreview }}</small>
               </div>
             </div>
           </div>

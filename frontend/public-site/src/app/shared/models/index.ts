@@ -166,9 +166,12 @@ export interface GalleryAlbum {
 
 export interface SiteSetting {
   id: number;
-  key: string;
-  value: string;
+  settingKey: string;
+  settingValue: string;
   description: string;
+  // alias para compatibilidad
+  key?: string;
+  value?: string;
 }
 
 export interface SocialLink {

@@ -10,7 +10,7 @@ export class SettingsService {
   constructor(private api: ApiService) {}
 
   getSettings(): Observable<SiteSetting[]> {
-    return this.api.get<SiteSetting[]>('settings');
+    return this.api.get<SiteSetting[]>('settings/public');
   }
 
   getSocialLinks(): Observable<SocialLink[]> {

@@ -51,8 +51,11 @@
   padding: 8px 16px !important;
   transition: all .3s ease;
   position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 
-  i { margin-right: 6px; font-size: .85rem; }
+  i { font-size: .85rem; line-height: 1; }
 
   &:hover, &.active { color: $c-gold; }
 

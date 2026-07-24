@@ -2,9 +2,9 @@
   <nav class="navbar navbar-expand-lg">
     <div class="container">
       <a class="navbar-brand" routerLink="/" (click)="closeMenu()">
-        <img src="assets/images/logo-white.png" alt="Chocolates Artesanales" class="logo-light">
-        <img src="assets/images/logo-dark.png" alt="Chocolates Artesanales" class="logo-dark">
-        <span class="brand-text">Chocolates Artesanales</span>
+        <img [src]="logoLightUrl" [alt]="siteTitle" class="logo-light">
+        <img [src]="logoDarkUrl" [alt]="siteTitle" class="logo-dark">
+        <span class="brand-text">{{ siteTitle }}</span>
       </a>
       <button class="navbar-toggler" type="button" (click)="toggleMenu()" aria-label="Toggle navigation">
         <span class="hamburger" [ngClass]="{ 'is-active': isMenuOpen }">
