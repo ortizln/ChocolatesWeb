@@ -1,14 +1,17 @@
+@use '../../../../_variables' as *;
 .product-card {
-  background: var(--bg-card);
-  border-radius: var(--radius);
+  background: $c-bg-card;
+  border: 1px solid $c-border;
+  border-radius: $radius;
   overflow: hidden;
-  transition: all .3s ease;
-  box-shadow: var(--shadow);
+  transition: $transition;
+  box-shadow: $shadow;
   height: 100%;
 
   &:hover {
     transform: translateY(-8px);
-    box-shadow: var(--shadow-lg);
+    box-shadow: $shadow-lg;
+    border-color: rgba($c-gold, .3);
 
     .product-overlay { opacity: 1; }
     .product-image img { transform: scale(1.1); }
@@ -35,23 +38,23 @@
 
 .product-overlay {
   position: absolute;  inset: 0;
-  background: rgba(74,107,63,.75);
+  background: rgba(0,0,0,.65);
   display: flex;  align-items: center;  justify-content: center;
   opacity: 0;
   transition: opacity .3s ease;
 }
 
 .btn-view-product {
-  background: var(--secondary);
-  color: #fff;
+  background: $grad-gold;
+  color: $c-black-deep;
   padding: 10px 24px;
   border-radius: 50px;
-  font-size: .9rem;  font-weight: 600;
+  font-size: .9rem;  font-weight: 700;
   transition: all .3s ease;
   i { margin-right: 6px; }
   &:hover {
-    background: #fff;
-    color: var(--primary);
+    box-shadow: 0 4px 20px rgba($c-gold, .4);
+    color: $c-black-deep;
   }
 }
 
@@ -63,17 +66,17 @@
 }
 
 .badge-featured {
-  background: var(--secondary);
-  color: #fff;
+  background: $grad-gold;
+  color: $c-black-deep;
   padding: 4px 12px;
   border-radius: 4px;
-  font-size: .75rem;  font-weight: 600;
+  font-size: .75rem;  font-weight: 700;
   i { margin-right: 4px; }
 }
 
 .badge-discount {
-  background: var(--danger);
-  color: #fff;
+  background: #e53e3e;
+  color: $c-white;
   padding: 4px 12px;
   border-radius: 4px;
   font-size: .75rem;  font-weight: 600;
@@ -86,15 +89,15 @@
 }
 
 .product-category {
-  color: var(--secondary);
+  color: $c-gold;
   font-size: .8rem;  font-weight: 600;
   text-transform: uppercase;  letter-spacing: 1px;
   margin-bottom: 6px;
 }
 
 .product-name {
-  font-family: var(--font-heading);
-  color: var(--text);
+  font-family: $font-heading;
+  color: $c-white;
   font-size: 1.1rem;
   margin-bottom: 4px;
   line-height: 1.3;
@@ -105,7 +108,7 @@
 }
 
 .product-code {
-  color: var(--text-muted);
+  color: $c-text-muted;
   font-size: .8rem;
   margin-bottom: 12px;
 }
@@ -118,9 +121,9 @@
 
 .product-price {
   font-size: 1.2rem;  font-weight: 700;
-  color: var(--primary);
+  color: $c-gold;
   &.has-discount {
-    color: var(--text-muted);
+    color: $c-text-muted;
     text-decoration: line-through;
     font-size: 1rem;  font-weight: 400;
   }
@@ -128,17 +131,17 @@
 
 .product-discount-price {
   font-size: 1.3rem;  font-weight: 700;
-  color: var(--danger);
+  color: #e53e3e;
 }
 
 .product-meta {
   display: flex;  gap: 16px;
   padding-top: 12px;
-  border-top: 1px solid var(--border);
+  border-top: 1px solid $c-border;
 }
 
 .meta-item {
   font-size: .85rem;
-  color: var(--text-muted);
-  i { margin-right: 4px;  color: var(--secondary); }
+  color: $c-text-muted;
+  i { margin-right: 4px;  color: $c-gold; }
 }

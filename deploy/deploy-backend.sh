@@ -39,7 +39,9 @@ else
 fi
 
 # 3. Crear directorio de uploads
-mkdir -p "$BACKEND_DIR/uploads"
+UPLOAD_HOST_DIR=$(grep -oP '^UPLOAD_HOST_DIR=\K.*' "$ENV_FILE" 2>/dev/null || echo "/opt/chocolates/uploads")
+echo "[*] Preparando directorio de uploads: $UPLOAD_HOST_DIR"
+mkdir -p "$UPLOAD_HOST_DIR/products"
 
 # 4. Construir y levantar contenedor
 echo "[*] Construyendo imagen Docker..."

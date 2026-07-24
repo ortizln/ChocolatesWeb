@@ -1,0 +1,51 @@
+// ============================================================
+// CHOCOLATES WEB — Public Site Premium Theme Variables
+// Palette: Black / Gold / Silver / Coffee
+// ============================================================
+
+// --- Primary Palette ---
+$c-black:        #000000;
+$c-black-soft:   #1a1a1a;
+$c-black-deep:   #111111;
+$c-gold:         #C9A227;
+$c-gold-light:   #E8D06A;
+$c-gold-dark:    #8B7310;
+$c-silver:       #C0C0C0;
+$c-silver-light: #DCDCDC;
+$c-silver-dark:  #888888;
+$c-coffee:       #6F4E37;
+$c-coffee-light: #A0784A;
+$c-coffee-dark:  #4A3525;
+$c-butter:       #F5E6C8;
+$c-white:        #FFFFFF;
+
+// --- Semantic ---
+$c-bg:           #0a0a0a;
+$c-bg-card:      #1a1a1a;
+$c-bg-section:   #111111;
+$c-border:       #2a2a2a;
+$c-text:         #e8e4de;
+$c-text-muted:   #9a9488;
+$c-text-light:   #c8c0b4;
+
+// --- Gradients ---
+$grad-gold:      linear-gradient(135deg, $c-gold, $c-gold-dark);
+$grad-coffee:    linear-gradient(135deg, $c-coffee, $c-coffee-dark);
+$grad-black-gold: linear-gradient(135deg, $c-black-soft, $c-gold-dark);
+$grad-silver:    linear-gradient(135deg, $c-silver-light, $c-silver-dark);
+
+// --- Typography ---
+$font-heading: 'Playfair Display', serif;
+$font-body:    'Raleway', sans-serif;
+
+// --- Spacing / Radius / Shadows ---
+$radius:    16px;
+$radius-sm: 10px;
+$shadow:    0 4px 15px rgba(0,0,0,.08);
+$shadow-lg: 0 12px 40px rgba(0,0,0,.12);
+$transition: all .3s ease;
+
+// --- Header ---
+$header-h: 80px;
+$sidebar-w: 260px;
+$sidebar-w-collapsed: 80px;

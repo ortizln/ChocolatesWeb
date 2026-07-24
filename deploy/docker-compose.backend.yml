@@ -1,13 +1,5 @@
 version: '3.8'
 
-# ============================================================
-# CHOCOLATES WEB - Backend (Spring Boot) en Docker
-# Base de datos: NATIVA (NO en Docker)
-# ============================================================
-# Uso:
-#   docker compose -f docker-compose.backend.yml --env-file .env up -d
-# ============================================================
-
 services:
   spring-app:
     build:
@@ -25,9 +17,9 @@ services:
       - DB_PASSWORD=${DB_PASSWORD:-086411421}
       - JWT_SECRET=${JWT_SECRET}
       - JWT_EXPIRATION=${JWT_EXPIRATION:-86400000}
-      - CORS_ORIGINS=${CORS_ORIGINS:-http://192.168.100.215:4200,http://192.168.100.215:4300,http://192.168.100.215}
-      - UPLOAD_DIR=${UPLOAD_DIR:-/app/uploads}
+      - CORS_ORIGINS=${CORS_ORIGINS:-http://192.168.100.215}
+      - APP_UPLOAD_DIR=${APP_UPLOAD_DIR:-/app/uploads}
     volumes:
-      - ../backend/uploads:/app/uploads
+      - ${UPLOAD_HOST_DIR:-/opt/chocolates/uploads}:/app/uploads
     restart: unless-stopped
     network_mode: host

@@ -1,5 +1,26 @@
-server:
+app:
   port: 8082
+  jwt:
+    secret: ${JWT_SECRET:YmFzZTY0RW5jb2RlZFNlY3JldEtleUZvckNob2NvbGF0ZXNXZWJBcHBsaWNhdGlvbjIwMjQ=}
+    expiration: ${JWT_EXPIRATION:86400000}
+    refresh-expiration: 604800000
+  minio:
+    endpoint: ${MINIO_ENDPOINT:}
+    access-key: ${MINIO_ACCESS_KEY:chocolates_minio}
+    secret-key: ${MINIO_SECRET_KEY:Ch0c0l4t3s_M1n10_2024!}
+    bucket: ${MINIO_BUCKET:chocolates-media}
+    region: us-east-1
+  upload:
+    dir: ../uploads
+    allowed-types: image/jpeg,image/png,image/webp,image/gif,video/mp4,video/webm,application/pdf
+    max-size: 52428800
+  analytics:
+    geoip-db-path: ${GEOIP_DB_PATH:./data/GeoLite2-City.mmdb}
+  cors:
+    allowed-origins: ${CORS_ORIGINS:http://192.168.100.215:4200,http://192.168.100.215:4300,http://192.168.100.215}
+
+server:
+  port: ${app.port:8082}
 
 spring:
   application:
@@ -22,7 +43,6 @@ spring:
     show-sql: false
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
         jdbc:
           batch_size: 50
@@ -55,30 +75,6 @@ spring:
           auth: true
           starttls:
             enable: true
-
-app:
-  jwt:
-    secret: ${JWT_SECRET:YmFzZTY0RW5jb2RlZFNlY3JldEtleUZvckNob2NvbGF0ZXNXZWJBcHBsaWNhdGlvbjIwMjQ=}
-    expiration: ${JWT_EXPIRATION:86400000}
-    refresh-expiration: 604800000
-
-  minio:
-    endpoint: ${MINIO_ENDPOINT:}
-    access-key: ${MINIO_ACCESS_KEY:chocolates_minio}
-    secret-key: ${MINIO_SECRET_KEY:Ch0c0l4t3s_M1n10_2024!}
-    bucket: ${MINIO_BUCKET:chocolates-media}
-    region: us-east-1
-
-  upload:
-    dir: ${UPLOAD_DIR:./uploads}
-    allowed-types: image/jpeg,image/png,image/webp,image/gif,video/mp4,video/webm,application/pdf
-    max-size: 52428800
-
-  analytics:
-    geoip-db-path: ${GEOIP_DB_PATH:./data/GeoLite2-City.mmdb}
-
-  cors:
-    allowed-origins: ${CORS_ORIGINS:http://192.168.100.215:4200,http://192.168.100.215:4300,http://192.168.100.215}
 
 logging:
   level:

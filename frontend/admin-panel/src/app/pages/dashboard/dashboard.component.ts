@@ -21,11 +21,11 @@ export class DashboardComponent implements OnInit {
       datasets: [{
         data: [],
         label: 'Visitas',
-        borderColor: '#4A6B3F',
-        backgroundColor: 'rgba(74,107,63,0.1)',
+        borderColor: '#C9A227',
+        backgroundColor: 'rgba(201,162,39,.1)',
         fill: true,
         tension: 0.4,
-        pointBackgroundColor: '#4A6B3F',
+        pointBackgroundColor: '#C9A227',
         pointBorderColor: '#fff',
         pointBorderWidth: 2,
         pointRadius: 4
@@ -35,7 +35,7 @@ export class DashboardComponent implements OnInit {
       responsive: true,
       plugins: { legend: { display: false } },
       scales: {
-        y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.05)' } },
+        y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,.05)' } },
         x: { grid: { display: false } }
       }
     }
@@ -47,7 +47,7 @@ export class DashboardComponent implements OnInit {
       labels: [],
       datasets: [{
         data: [],
-        backgroundColor: ['#4A6B3F', '#5B9B8C', '#6B8F5E', '#7DBDB0', '#3A5A2F'],
+        backgroundColor: ['#C9A227', '#8B6A4E', '#5A3E2B', '#1B1B1B', '#D4AF37'],
         borderWidth: 0
       }]
     },
@@ -75,14 +75,14 @@ export class DashboardComponent implements OnInit {
 
   private setMockData(): void {
     this.statCards = [
-      { value: 284, label: 'Visitas Hoy', icon: 'fa-eye', bg: '#E6F7EE', color: '#48BB78', trend: 12 },
-      { value: 24, label: 'Productos', icon: 'fa-box', bg: '#F0F5EE', color: '#4A6B3F', trend: 8 },
-      { value: 18, label: 'Posts', icon: 'fa-newspaper', bg: '#EEF6F4', color: '#5B9B8C', trend: 5 },
-      { value: 6, label: 'Eventos', icon: 'fa-calendar-alt', bg: '#FEF3E2', color: '#ED8936' },
-      { value: 12, label: 'Usuarios', icon: 'fa-users', bg: '#E0F5FE', color: '#4FD1C5' },
-      { value: 47, label: 'Mensajes', icon: 'fa-envelope', bg: '#FDE8E8', color: '#FC5454' },
-      { value: 1847, label: 'Visitas Semanales', icon: 'fa-chart-line', bg: '#F0F5EE', color: '#4A6B3F', trend: -3 },
-      { value: 8234, label: 'Visitas Mensuales', icon: 'fa-chart-bar', bg: '#EEF6F4', color: '#5B9B8C', trend: 15 }
+      { value: 284, label: 'Visitas Hoy', icon: 'fa-eye', bg: '#F5F5F5', color: '#1B1B1B', trend: 12 },
+      { value: 24, label: 'Productos', icon: 'fa-box', bg: '#FDF8E7', color: '#C9A227', trend: 8 },
+      { value: 18, label: 'Posts', icon: 'fa-newspaper', bg: '#F5EDE4', color: '#8B6A4E' },
+      { value: 6, label: 'Eventos', icon: 'fa-calendar-alt', bg: '#FFF8E1', color: '#F9A825' },
+      { value: 12, label: 'Usuarios', icon: 'fa-users', bg: '#E3F2FD', color: '#1565C0' },
+      { value: 47, label: 'Mensajes', icon: 'fa-envelope', bg: '#FFEBEE', color: '#C62828' },
+      { value: 1847, label: 'Visitas Semanales', icon: 'fa-chart-line', bg: '#FDF8E7', color: '#C9A227', trend: -3 },
+      { value: 8234, label: 'Visitas Mensuales', icon: 'fa-chart-bar', bg: '#F5EDE4', color: '#8B6A4E', trend: 15 }
     ];
 
     this.visitasPorDia.data.labels = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];

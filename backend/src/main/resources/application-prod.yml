@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://192.168.100.215:5432/chocolates_db
+    username: postgres
+    password: 086411421
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+
+app:
+  upload:
+    dir: /var/www/uploads
+
+cors:
+  allowed-origins: http://192.168.100.215,http://192.168.100.215:8082
+
+logging:
+  level:
+    com.chocolates: INFO
+    org.springframework.security: INFO

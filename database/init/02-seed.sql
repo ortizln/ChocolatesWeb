@@ -75,3 +75,13 @@ INSERT INTO daily_stats (stat_date, total_visits, unique_visitors) VALUES
 
 INSERT INTO monthly_stats (stat_year, stat_month, total_visits, unique_visitors) VALUES
 (EXTRACT(YEAR FROM CURRENT_DATE)::INT, EXTRACT(MONTH FROM CURRENT_DATE)::INT, 0, 0);
+
+-- ============================================================
+-- CATEGORÍAS POR DEFECTO (imprescindibles para crear productos)
+-- ============================================================
+INSERT INTO categories (name, slug, description, sort_order, active) VALUES
+('Chocolate Negro', 'chocolate-negro', 'Chocolates oscuros elaborados con cacao premium', 1, TRUE),
+('Chocolate con Leche', 'chocolate-con-leche', 'Chocolates cremosos con leche selecta', 2, TRUE),
+('Chocolate Blanco', 'chocolate-blanco', 'Chocolates blancos de alto contenido en cacao', 3, TRUE),
+('Bombones y Trufas', 'bombones-y-trufas', 'Delicias chocolateras artesanales', 4, TRUE),
+('Cacao y Derivados', 'cacao-y-derivados', 'Cacao en grano, polvo y pastas', 5, TRUE);

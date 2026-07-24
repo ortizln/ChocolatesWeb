@@ -1,7 +1,9 @@
+@use '../../../../_variables' as *;
 .main-footer {
   position: relative;
-  background: linear-gradient(135deg, var(--primary-dark) 0%, #1a2e14 100%);
-  color: rgba(255,255,255,.9);
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1208 100%);
+  color: rgba(255,255,255,.85);
+  border-top: 1px solid rgba($c-gold, .15);
 }
 
 .footer-wave {
@@ -18,8 +20,8 @@
     margin-bottom: 20px;
     img { height: 50px; }
     h4 {
-      font-family: var(--font-heading);
-      font-size: 1.3rem;  color: #fff;  margin: 0;
+      font-family: $font-heading;
+      font-size: 1.3rem;  color: $c-gold;  margin: 0;
     }
   }
 }
@@ -31,21 +33,24 @@
 .social-link {
   display: flex;  align-items: center;  justify-content: center;
   width: 40px;  height: 40px;
-  background: rgba(255,255,255,.1);
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba($c-gold, .2);
   border-radius: 50%;
-  color: #fff;  font-size: 1rem;
+  color: $c-gold;
+  font-size: 1rem;
   transition: all .3s ease;
   &:hover {
-    background: var(--secondary);
-    color: #fff;
+    background: $c-gold;
+    color: $c-black-deep;
     transform: translateY(-3px);
+    border-color: $c-gold;
   }
 }
 
 .widget-title {
-  font-family: var(--font-heading);
+  font-family: $font-heading;
   font-size: 1.1rem;
-  color: var(--secondary-light);
+  color: $c-gold;
   margin-bottom: 20px;
   position: relative;
   padding-bottom: 12px;
@@ -53,7 +58,7 @@
     content: '';
     position: absolute;  bottom: 0;  left: 0;
     width: 40px;  height: 2px;
-    background: var(--secondary-light);
+    background: $grad-gold;
   }
 }
 
@@ -62,13 +67,13 @@
   li {
     margin-bottom: 10px;
     a {
-      color: rgba(255,255,255,.8);
+      color: rgba(255,255,255,.7);
       text-decoration: none;
       font-size: .9rem;
       transition: all .3s ease;
       i { font-size: .6rem;  margin-right: 8px;  transition: margin .3s ease; }
       &:hover {
-        color: var(--secondary-light);
+        color: $c-gold;
         padding-left: 5px;
         i { margin-right: 12px; }
       }
@@ -81,61 +86,67 @@
   li {
     padding: 6px 0;
     font-size: .9rem;
-    border-bottom: 1px solid rgba(255,255,255,.1);
-    span { font-weight: 600;  color: var(--secondary-light); }
+    border-bottom: 1px solid rgba(255,255,255,.06);
+    span { font-weight: 600;  color: $c-gold; }
   }
 }
 
 .footer-contact {
   p {
     margin-bottom: 8px;  font-size: .9rem;
-    i { width: 20px;  color: var(--secondary-light);  margin-right: 8px; }
+    i { width: 20px;  color: $c-gold;  margin-right: 8px; }
   }
 }
 
 .newsletter-form {
   .input-group {
-    background: rgba(255,255,255,.1);
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba($c-gold, .2);
     border-radius: 50px;
     overflow: hidden;
   }
   .form-control {
-    background: transparent;  border: none;  color: #fff;
+    background: transparent;  border: none;  color: $c-white;
     padding: 12px 20px;
-    &::placeholder { color: rgba(255,255,255,.5); }
+    &::placeholder { color: rgba(255,255,255,.35); }
     &:focus { box-shadow: none; }
   }
   .btn-subscribe {
-    background: var(--secondary);
-    color: #fff;  border: none;
+    background: $grad-gold;
+    color: $c-black-deep;
+    border: none;
     padding: 0 20px;
     border-radius: 0 50px 50px 0;
-    transition: background .3s ease;
-    &:hover { background: var(--secondary-dark); }
+    font-weight: 700;
+    transition: all .3s ease;
+    &:hover {
+      box-shadow: 0 4px 20px rgba($c-gold, .4);
+    }
   }
 }
 
 .payment-icons {
   display: flex;  gap: 10px;
   font-size: 1.8rem;
-  color: rgba(255,255,255,.5);
+  color: rgba(255,255,255,.3);
 }
 
 .footer-bottom {
-  background: rgba(0,0,0,.2);
+  background: rgba(0,0,0,.3);
   padding: 20px 0;
+  border-top: 1px solid rgba(255,255,255,.05);
 }
 
-.copyright { margin: 0;  font-size: .85rem;  opacity: .8; }
+.copyright { margin: 0;  font-size: .85rem;  opacity: .7; }
 
 .footer-bottom-links {
   display: flex;  gap: 20px;  justify-content: flex-end;
   a {
-    color: rgba(255,255,255,.7);
+    color: rgba(255,255,255,.6);
     text-decoration: none;
     font-size: .85rem;
     transition: color .3s ease;
-    &:hover { color: var(--secondary-light); }
+    &:hover { color: $c-gold; }
   }
 }
 

@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/chocolates_db
+    username: postgres
+    password: 086411421
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+
+cors:
+  allowed-origins: http://localhost:4200,http://localhost:4300,http://localhost:8082

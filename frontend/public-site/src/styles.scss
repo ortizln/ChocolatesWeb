@@ -1,146 +1,103 @@
-/* ============================================================
-   CHOCOLATES WEB — Public Theme
-   Basado en: verde militar + verde agua
-   ============================================================ */
+@use './variables' as *;
 
-:root {
-  --primary:       #4A6B3F;
-  --primary-dark:  #3A5A2F;
-  --primary-light: #6B8F5E;
-  --primary-bg:    #F0F5EE;
+// ============================================================
+// CHOCOLATES WEB — Public Site Premium Theme
+// Palette: Black / Gold / Silver / Coffee
+// ============================================================
 
-  --secondary:       #5B9B8C;
-  --secondary-dark:  #4A8A7B;
-  --secondary-light: #7DBDB0;
-  --secondary-bg:    #EEF6F4;
-
-  --white:       #FFFFFF;
-  --bg:          #F8F9FB;
-  --bg-card:     #FFFFFF;
-  --border:      #E2E5EC;
-  --text:        #2D3748;
-  --text-muted:  #718096;
-
-  --success: #48BB78;
-  --warning: #ED8936;
-  --danger:  #FC5454;
-  --info:    #4FD1C5;
-
-  --font-heading: 'Playfair Display', serif;
-  --font-body: 'Raleway', sans-serif;
-
-  --radius:    16px;
-  --radius-sm: 10px;
-  --shadow:    0 4px 15px rgba(0,0,0,.08);
-  --shadow-lg: 0 12px 40px rgba(0,0,0,.12);
-  --transition: all .3s ease;
-}
-
+// --- Reset & Base ---
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 html { scroll-behavior: smooth; }
 
 body {
-  font-family: var(--font-body);
-  color: var(--text);
-  background: var(--bg);
+  font-family: $font-body;
+  color: $c-text;
+  background: $c-bg;
   line-height: 1.6;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-heading);
+  font-family: $font-heading;
   font-weight: 700;
 }
 
-/* ==========================================
-   TEXT UTILITIES
-   ========================================== */
-.text-gradient {
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+a { color: $c-gold; text-decoration: none; transition: color .3s ease;
+  &:hover { color: $c-gold-light; }
 }
 
-.text-primary { color: var(--primary) !important; }
-.text-secondary { color: var(--secondary) !important; }
-
-/* ==========================================
-   BUTTONS
-   ========================================== */
+// --- Primary Buttons ---
 .btn-primary-custom {
-  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-  color: white;
+  background: $grad-gold;
+  color: $c-black-deep;
   border: none;
-  padding: 12px 32px;
+  padding: 14px 36px;
   border-radius: 50px;
-  font-weight: 600;
-  font-family: var(--font-body);
-  transition: var(--transition);
+  font-weight: 700;
+  font-family: $font-body;
+  transition: $transition;
   text-transform: uppercase;
   letter-spacing: 1px;
   cursor: pointer;
   display: inline-flex; align-items: center; gap: 8px;
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(74,107,63,0.3);
-  }
-}
-
-.btn-secondary-custom {
-  background: linear-gradient(135deg, var(--secondary), var(--secondary-dark));
-  color: white;
-  border: none;
-  padding: 12px 32px;
-  border-radius: 50px;
-  font-weight: 600;
-  font-family: var(--font-body);
-  transition: var(--transition);
-  cursor: pointer;
-  display: inline-flex; align-items: center; gap: 8px;
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(91,155,140,0.3);
-    color: white;
+    box-shadow: 0 8px 30px rgba(201,162,39,.4);
+    color: $c-black-deep;
   }
 }
 
 .btn-outline-custom {
   background: transparent;
-  color: var(--primary);
-  border: 2px solid var(--primary);
-  padding: 10px 28px;
+  color: $c-gold;
+  border: 2px solid $c-gold;
+  padding: 12px 32px;
   border-radius: 50px;
   font-weight: 600;
-  font-family: var(--font-body);
-  transition: var(--transition);
+  font-family: $font-body;
+  transition: $transition;
   cursor: pointer;
   display: inline-flex; align-items: center; gap: 8px;
   &:hover {
-    background: var(--primary);
-    color: white;
+    background: $c-gold;
+    color: $c-black-deep;
     transform: translateY(-2px);
   }
 }
 
-/* ==========================================
-   SECTIONS
-   ========================================== */
+.btn-coffee-custom {
+  background: $grad-coffee;
+  color: $c-white;
+  border: none;
+  padding: 12px 32px;
+  border-radius: 50px;
+  font-weight: 600;
+  font-family: $font-body;
+  transition: $transition;
+  cursor: pointer;
+  display: inline-flex; align-items: center; gap: 8px;
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(111,78,55,.4);
+  }
+}
+
+// --- Section Helpers ---
 .section-padding { padding: 80px 0; }
 
 .section-title {
-  font-family: var(--font-heading);
+  font-family: $font-heading;
   font-size: 2.5rem;
-  color: var(--text);
+  color: $c-white;
   margin-bottom: 1rem;
   text-align: center;
 }
 
 .section-subtitle {
   font-size: 1.1rem;
-  color: var(--text-muted);
+  color: $c-text-muted;
   text-align: center;
   margin-bottom: 3rem;
   max-width: 600px;
@@ -148,45 +105,42 @@ h1, h2, h3, h4, h5, h6 {
   margin-right: auto;
 }
 
-/* ==========================================
-   CARDS
-   ========================================== */
-.card-custom {
-  background: var(--bg-card);
-  border: none;
-  border-radius: var(--radius);
+.gold-line {
+  width: 60px;  height: 3px;
+  background: $grad-gold;
+  margin: 1rem auto 0;
+  border-radius: 2px;
+}
+
+// --- Cards ---
+.card-premium {
+  background: $c-bg-card;
+  border: 1px solid $c-border;
+  border-radius: $radius;
   overflow: hidden;
-  transition: var(--transition);
-  box-shadow: var(--shadow);
+  transition: $transition;
+  box-shadow: $shadow;
   &:hover {
     transform: translateY(-5px);
-    box-shadow: var(--shadow-lg);
+    box-shadow: $shadow-lg;
+    border-color: $c-gold-dark;
   }
 }
 
-/* ==========================================
-   GRID HELPERS
-   ========================================== */
-.section-bg-light { background: var(--bg); }
-.section-bg-primary { background: var(--primary-bg); }
-.section-bg-dark {
-  background: linear-gradient(135deg, var(--primary-dark), #1a2e14);
-  color: white;
-}
+// --- Background Sections ---
+.bg-dark   { background: $c-bg-deep; }
+.bg-card   { background: $c-bg-card; }
+.bg-gold-bg { background: rgba($c-gold, .05); }
 
-/* ==========================================
-   SCROLLBAR
-   ========================================== */
+// --- Scrollbar ---
 ::-webkit-scrollbar { width: 8px; }
-::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-track { background: $c-bg; }
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(var(--primary), var(--secondary));
+  background: $grad-gold;
   border-radius: 4px;
 }
 
-/* ==========================================
-   ANIMATIONS
-   ========================================== */
+// --- Animations ---
 .fade-in {
   opacity: 0;
   transform: translateY(30px);
@@ -197,19 +151,11 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
-
-/* ==========================================
-   RESPONSIVE
-   ========================================== */
+// --- Responsive ---
 @media (max-width: 991.98px) {
   .section-padding { padding: 60px 0; }
   .section-title { font-size: 2rem; }
 }
-
 @media (max-width: 767.98px) {
   .section-padding { padding: 40px 0; }
   .section-title { font-size: 1.6rem; }
