@@ -1,21 +1,16 @@
 import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
-import { HeaderComponent } from './shared/components/header/header.component';
+import { LayoutComponent } from './shared/components/layout/layout.component';
 import { AuthService } from './shared/services/auth.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, SidebarComponent, HeaderComponent],
+  imports: [RouterOutlet, CommonModule, LayoutComponent],
   template: `
     <ng-container *ngIf="isLoggedIn; else loginView">
-      <app-sidebar></app-sidebar>
-      <app-header></app-header>
-      <main class="main-content">
-        <router-outlet></router-outlet>
-      </main>
+      <app-layout></app-layout>
     </ng-container>
 
     <ng-template #loginView>
@@ -24,20 +19,6 @@ import { AuthService } from './shared/services/auth.service';
   `,
   styles: [`
     :host { display: contents; }
-    .main-content {
-      margin-top: var(--header-h);
-      margin-left: var(--sidebar-w);
-      padding: 24px;
-      min-height: calc(100vh - var(--header-h));
-      background: var(--bg);
-      transition: margin-left .25s ease;
-    }
-    @media (max-width: 1199px) {
-      .main-content { margin-left: var(--sidebar-w-collapsed); }
-    }
-    @media (max-width: 767px) {
-      .main-content { margin-left: 0; padding: 16px; }
-    }
   `]
 })
 export class AppComponent {
